@@ -1,0 +1,52 @@
+.vscode/*
+
+# STM32 build output
+**/Debug/
+**/Release/
+**/build/
+**/output/
+
+# Compiled binaries
+*.elf
+*.bin
+*.hex
+*.map
+*.o
+*.d
+
+# STM32CubeIDE-specific
+.settings/
+.metadata/
+.cproject
+.project
+.launches/
+*.launch
+
+### Altium ###
+# Previews Folders
+**/__Previews/
+
+# History Folders
+**/History/*
+
+# Project Logs
+Project Logs*/
+
+# Project Outputs
+Project Outputs*/
+
+# Auto-conversion notices
+*.PcbDoc.htm
+
+# Access lock file for dbLib sources
+**/*.ldb
+
+# Document Local Metadata
+*.metadata
+
+# Project hierarchy auto-generated file
+*.PrjPcbStructure
+*.PrjMbdStructure
+
+# Folder to save each comparison results
+CompareHistory/
