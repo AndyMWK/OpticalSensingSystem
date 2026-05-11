@@ -167,9 +167,11 @@ int main(void)
 
     // FSM update task run at 100Hz
     if(fsm_tick) {
+
       if(comms.rs485_flag) {
         read_packet(rs485_buffer, &(comms.rs485_msg));
       }
+      
       update_fsm(&fifo_buffer, &comms);
       fsm_tick = 0;
       comms.rs485_flag = 0;
@@ -631,6 +633,8 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 }
 
 void HAL_UART_RxCpltCallback (UART_HandleTypeDef * huart) {
+
+  // need to check which uart channel. 
   comms.rs485_flag = 1;
 }
 /* USER CODE END 4 */
