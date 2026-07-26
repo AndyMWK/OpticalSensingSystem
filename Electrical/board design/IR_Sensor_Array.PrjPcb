@@ -153,23 +153,6 @@ GenerateClassCluster=0
 DocumentUniqueId=XGHNTHXL
 
 [Document7]
-DocumentPath=..\..\..\..\ak915\Downloads\SP3485EN_L_TR\AltiumDesigner\USB.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=NFLPTDZD
-
-[Document8]
 DocumentPath=Power.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -186,7 +169,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SFQZDPZA
 
-[Document9]
+[Document8]
 DocumentPath=Sensor_Controller.Harness
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -203,7 +186,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document10]
+[Document9]
 DocumentPath=IR_Sensor.Harness
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -220,7 +203,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document11]
+[Document10]
 DocumentPath=comms_interface.Harness
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -237,7 +220,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document12]
+[Document11]
 DocumentPath=..\..\..\..\ak915\Downloads\SP3485EN_L_TR\AltiumDesigner\USB.Harness
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -254,7 +237,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document13]
+[Document12]
 DocumentPath=USB.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -271,7 +254,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=MASAETFQ
 
-[Document14]
+[Document13]
 DocumentPath=Job1.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -293,356 +276,367 @@ UniqueId=0c774107-5fa9-4e43-9b94-490be3e82632
 Description=Variant 1A
 AllowFabrication=0
 ParameterCount=0
-VariationCount=6
+VariationCount=5
 Variation1=Designator=J3|UniqueId=\MOCPJIIN\IQWHDSXV|Kind=1|AlternatePart=
 Variation2=Designator=J2|UniqueId=\MFQGGERQ\RZHCMCPZ|Kind=1|AlternatePart=
 Variation3=Designator=J5|UniqueId=\XPIZVGIN\LFKWXOPV|Kind=1|AlternatePart=
-Variation4=Designator=LED1|UniqueId=\BTZNDGLQ\YGSNQYIH|Kind=1|AlternatePart=
-Variation5=Designator=LED2|UniqueId=\BTZNDGLQ\CLOVPZRR|Kind=1|AlternatePart=
-Variation6=Designator=U1|UniqueId=\XPIZVGIN\LJEHWWQA|Kind=1|AlternatePart=
+Variation4=Designator=U1|UniqueId=\XPIZVGIN\LJEHWWQA|Kind=1|AlternatePart=
+Variation5=Designator=J6|UniqueId=\BTZNDGLQ\EVUYMRHU|Kind=1|AlternatePart=
 ParamVariationCount=0
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for IR_Sensor_Array\BOM\Bill of Materials-IR_Sensor_Array.xlsx
+DocumentPath=Project Outputs for IR_Sensor_Array\BOM\Bill of Materials-IR_Sensor_Array(Variant 1A).xlsx
 DItemRevisionGUID=
 
 [GeneratedDocument2]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_bot\components
+DocumentPath=Project Outputs for IR_Sensor_Array\BOM\Bill of Materials-IR_Sensor_Array.xlsx
 DItemRevisionGUID=
 
 [GeneratedDocument3]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_top\components
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_bot\components
 DItemRevisionGUID=
 
 [GeneratedDocument4]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_bot\components
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_top\components
 DItemRevisionGUID=
 
 [GeneratedDocument5]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_top\components
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_bot\components
 DItemRevisionGUID=
 
 [GeneratedDocument6]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\eda\data
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_top\components
 DItemRevisionGUID=
 
 [GeneratedDocument7]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\eda\data
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\eda\data
 DItemRevisionGUID=
 
 [GeneratedDocument8]
-DocumentPath=Project Outputs for IR_Sensor_Array\Design Rule Check - PCB.html
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\eda\data
 DItemRevisionGUID=
 
 [GeneratedDocument9]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_layer\features
+DocumentPath=Project Outputs for IR_Sensor_Array\Design Rule Check - PCB.html
 DItemRevisionGUID=
 
 [GeneratedDocument10]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_overlay\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument11]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_paste\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_overlay\features
 DItemRevisionGUID=
 
 [GeneratedDocument12]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_solder\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_paste\features
 DItemRevisionGUID=
 
 [GeneratedDocument13]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_bot\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_solder\features
 DItemRevisionGUID=
 
 [GeneratedDocument14]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_top\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_bot\features
 DItemRevisionGUID=
 
 [GeneratedDocument15]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_1\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_top\features
 DItemRevisionGUID=
 
 [GeneratedDocument16]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_2\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_1\features
 DItemRevisionGUID=
 
 [GeneratedDocument17]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_3\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_2\features
 DItemRevisionGUID=
 
 [GeneratedDocument18]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_3\features
 DItemRevisionGUID=
 
 [GeneratedDocument19]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument20]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\gnd1\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument21]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\gnd2\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\gnd1\features
 DItemRevisionGUID=
 
 [GeneratedDocument22]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_layer\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\gnd2\features
 DItemRevisionGUID=
 
 [GeneratedDocument23]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_overlay\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument24]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_paste\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_overlay\features
 DItemRevisionGUID=
 
 [GeneratedDocument25]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_solder\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_paste\features
 DItemRevisionGUID=
 
 [GeneratedDocument26]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_layer\features
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_solder\features
 DItemRevisionGUID=
 
 [GeneratedDocument27]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_overlay\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument28]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_paste\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_overlay\features
 DItemRevisionGUID=
 
 [GeneratedDocument29]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_solder\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_paste\features
 DItemRevisionGUID=
 
 [GeneratedDocument30]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_bot\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_solder\features
 DItemRevisionGUID=
 
 [GeneratedDocument31]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_top\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_bot\features
 DItemRevisionGUID=
 
 [GeneratedDocument32]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_1\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_top\features
 DItemRevisionGUID=
 
 [GeneratedDocument33]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_2\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_1\features
 DItemRevisionGUID=
 
 [GeneratedDocument34]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_3\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_2\features
 DItemRevisionGUID=
 
 [GeneratedDocument35]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_3\features
 DItemRevisionGUID=
 
 [GeneratedDocument36]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument37]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\gnd1\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument38]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\gnd2\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\gnd1\features
 DItemRevisionGUID=
 
 [GeneratedDocument39]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_layer\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\gnd2\features
 DItemRevisionGUID=
 
 [GeneratedDocument40]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_overlay\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_layer\features
 DItemRevisionGUID=
 
 [GeneratedDocument41]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_paste\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_overlay\features
 DItemRevisionGUID=
 
 [GeneratedDocument42]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_solder\features
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_paste\features
 DItemRevisionGUID=
 
 [GeneratedDocument43]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\matrix\matrix
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_solder\features
 DItemRevisionGUID=
 
 [GeneratedDocument44]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\matrix\matrix
+DocumentPath=Project Outputs for Free Documents\ODB\odb\matrix\matrix
 DItemRevisionGUID=
 
 [GeneratedDocument45]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\netlists\cadnet\netlist
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\matrix\matrix
 DItemRevisionGUID=
 
 [GeneratedDocument46]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\netlists\cadnet\netlist
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\netlists\cadnet\netlist
 DItemRevisionGUID=
 
 [GeneratedDocument47]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles-NonPlated.TXT
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\netlists\cadnet\netlist
 DItemRevisionGUID=
 
 [GeneratedDocument48]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles-Plated.TXT
+DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles-NonPlated.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument49]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-RoundHoles.TXT
+DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles-Plated.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument50]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles.TXT
+DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-RoundHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument51]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-SlotHoles-Plated.TXT
+DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument52]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-SlotHoles.TXT
+DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-SlotHoles-Plated.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument53]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-SlotHoles.TXT
+DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-SlotHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument54]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.DRR
+DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-SlotHoles.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument55]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB.DRR
+DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument56]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB.EXTREP
+DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument57]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.EXTREP
+DocumentPath=Project Outputs for Free Documents\Gerber\PCB.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument58]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.G1
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument59]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.G2
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.G1
 DItemRevisionGUID=
 
 [GeneratedDocument60]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBL
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.G2
 DItemRevisionGUID=
 
 [GeneratedDocument61]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBO
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument62]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBP
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument63]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBS
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument64]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GKO
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument65]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GM
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GKO
 DItemRevisionGUID=
 
 [GeneratedDocument66]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTL
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GM
 DItemRevisionGUID=
 
 [GeneratedDocument67]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTO
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument68]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTP
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument69]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTS
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument70]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.LDP
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument71]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB.LDP
+DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument72]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB.REP
+DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument73]
-DocumentPath=Project Outputs for Free Documents\ODB\PCB.REP
+DocumentPath=Project Outputs for Free Documents\Gerber\PCB.REP
 DItemRevisionGUID=
 
 [GeneratedDocument74]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.REP
+DocumentPath=Project Outputs for Free Documents\ODB\PCB.REP
 DItemRevisionGUID=
 
 [GeneratedDocument75]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\PCB.REP
+DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.REP
 DItemRevisionGUID=
 
 [GeneratedDocument76]
-DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB.csv
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\PCB.REP
 DItemRevisionGUID=
 
 [GeneratedDocument77]
-DocumentPath=Project Outputs for Free Documents\Pick Place\Pick Place for PCB.txt
+DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB(Variant 1A).csv
 DItemRevisionGUID=
 
 [GeneratedDocument78]
-DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB.txt
+DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB(Variant 1A).txt
 DItemRevisionGUID=
 
 [GeneratedDocument79]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\profile
+DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB.csv
 DItemRevisionGUID=
 
 [GeneratedDocument80]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\profile
+DocumentPath=Project Outputs for Free Documents\Pick Place\Pick Place for PCB.txt
 DItemRevisionGUID=
 
 [GeneratedDocument81]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\stephdr
+DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB.txt
 DItemRevisionGUID=
 
 [GeneratedDocument82]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\stephdr
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\profile
 DItemRevisionGUID=
 
 [GeneratedDocument83]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\tools
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\profile
 DItemRevisionGUID=
 
 [GeneratedDocument84]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\tools
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\stephdr
 DItemRevisionGUID=
 
 [GeneratedDocument85]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\tools
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\stephdr
 DItemRevisionGUID=
 
 [GeneratedDocument86]
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\tools
+DItemRevisionGUID=
+
+[GeneratedDocument87]
+DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\tools
+DItemRevisionGUID=
+
+[GeneratedDocument88]
+DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\tools
+DItemRevisionGUID=
+
+[GeneratedDocument89]
 DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\tools
 DItemRevisionGUID=
 
