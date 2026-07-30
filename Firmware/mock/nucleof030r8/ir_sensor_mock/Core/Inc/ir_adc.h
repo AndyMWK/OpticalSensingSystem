@@ -44,6 +44,6 @@ void ir_adc_init(IrAdcConfig_t *config, IrAdcContext_t* context);
 /// @param context is stores the ADC representative information.
 /// @param fifo is the global fifo to store incoming ADC.
 /// @param buffer is the buffer where DMA allocates incoming ADC data. 
-void adc_conversion_complete_callback(IrAdcContext_t* context, fifo_t* fifo, uint32_t* buffer);
+void adc_conversion_complete_callback(IrAdcContext_t* context, fifo_t* fifo_pd1, fifo_t* fifo_pd2, uint32_t* buffer);
 
 #endif

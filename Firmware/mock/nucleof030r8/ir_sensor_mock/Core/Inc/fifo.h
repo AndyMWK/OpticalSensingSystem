@@ -6,6 +6,7 @@
 
 #define FIFO_SIZE 32
 
+/// @brief FIFO data structure
 typedef struct fifo_t {
     adc_msg_t buffer[FIFO_SIZE];
     uint8_t head;

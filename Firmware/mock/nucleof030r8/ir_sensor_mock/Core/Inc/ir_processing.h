@@ -6,6 +6,7 @@
 #include "fifo.h"
 #include "ir_adc.h"
 #include <math.h>
+#include <float.h>
 
 /*
 
@@ -18,11 +19,12 @@ Distance = (GAIN x sqrt(COEFF_A / VOLTAGE_TO_IRRADIANCE * V)) + OFFSET
 Should be able to check the actual math in the Vishay Optics Docs. 
 
 */
-#define GAIN 1.0
-#define OFFSET 3.0
-#define VOLTAGE_TO_IRRADIANCE  0.5
-#define COEFF_A 0.7
-#define VREF 3.3
+
+#define GAIN 1.0f
+#define OFFSET 3.0f
+#define VOLTAGE_TO_IRRADIANCE  0.5f
+#define COEFF_A 0.7f
+#define VREF 3.3f
 
 #define RATE_LIMIT 700
 #define OUT_OF_RANGE_LIMIT 50
@@ -30,6 +32,7 @@ Should be able to check the actual math in the Vishay Optics Docs.
 
 #define SMOOTHING_FACTOR_EMA 0.5
 
+/// @brief stores the previous value recorded by the EMA LPF 
 typedef struct ema_lpf_cache_t {
 
     uint16_t pd1_adc_prev;
@@ -37,6 +40,7 @@ typedef struct ema_lpf_cache_t {
 
 } ema_lpf_cache_t;
 
+/// @brief stores previous values and coefficients for the FIR LPF
 typedef struct fir_lpf_cache_t {
 
     // to be completed
@@ -45,15 +49,15 @@ typedef struct fir_lpf_cache_t {
 
 // Public API functions
 
-/// @brief funciton to stream the latest element in the fifo.
-void stream_from_fifo(fifo_t* fifo, data_msg_t* data_msg);
+/// @brief function to stream the latest element from each photodiode FIFO.
+void stream_from_fifo(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* data_msg);
 
 /// @brief function to average the fifo data and pack into a data message. 
-void stream_average_fifo(fifo_t* fifo, data_msg_t* data_msg);
+void stream_average_fifo(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* data_msg);
 
 /// @brief function to stream the ADC values via FIR LPF
-void stream_from_fifo_fir_lpf(fifo_t* fifo, data_msg_t* data_msg);
+void stream_from_fifo_fir_lpf(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* data_msg);
 
-void stream_from_fifo_ema_lpf(fifo_t* fifo, data_msg_t* data_msg);
+void stream_from_fifo_ema_lpf(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* data_msg);
 
 #endif

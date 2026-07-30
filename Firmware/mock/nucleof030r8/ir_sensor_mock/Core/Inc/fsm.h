@@ -7,9 +7,11 @@
 #include "message_types.h"
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #define MAX_ERROR_COUNT 10
 
+/// @brief All FSM States
 typedef enum fsm_state_t {
     STATE_IDLE = 0, 
     STATE_STREAMING, 
@@ -19,20 +21,22 @@ typedef enum fsm_state_t {
     STATE_ERROR
 } fsm_state_t;
 
+/// @brief records the current state of the FSM and its error count
 typedef struct fsm_context_t {
     fsm_state_t state;
     uint16_t error_count;
 } fsm_context_t;
 
+/// @brief the interface that the FSM uses for serial messages
 typedef struct comms_msg_t {
     uint8_t serial_log_tick;
 
-    uint8_t rs485_flag;
+    volatile uint8_t rs485_flag;
     rs485_interface_msg_t rs485_msg;
 } comms_msg_t;
 
 // Public API functions for the FSM module.
-void update_fsm(fifo_t* fifo, comms_msg_t* comms);
+void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms);
 
 /// @brief used to collect outputs from the FSM. Various message types are available. 
 void output_from_fsm(fsm_output_types_t out_type, char* message, uint16_t* filled_len, uint16_t message_max_size);

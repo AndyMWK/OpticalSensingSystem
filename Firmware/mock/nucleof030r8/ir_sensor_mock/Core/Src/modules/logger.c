@@ -41,6 +41,7 @@ void pop_log(UART_HandleTypeDef *huart) {
 
         if(pop_index == LOG_BUFFER_SIZE - 1) {
             // this is highly errenous. Only messages that fit within the buffer get copied. 
+            message_count--;
             return;
         }
 

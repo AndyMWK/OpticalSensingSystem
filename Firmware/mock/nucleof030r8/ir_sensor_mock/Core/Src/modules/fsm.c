@@ -1,12 +1,13 @@
 #include "fsm.h"
 
+// Private Helper Functions
 static void handle_sensor_error();
 static void handle_fifo_failed_error();
 static void handle_sensor_saturated_error();
 static void handle_sensor_out_of_range_error();
 
-static void create_log_msg(data_msg_t* incoming_fifo_data);
-static uint32_t distance_to_centimeters(float distance);
+static inline void create_log_msg(data_msg_t* incoming_fifo_data);
+static inline uint32_t distance_to_centimeters(float distance);
 
 //---Internal data structures initialization for the FSM---
 static fsm_context_t ctx = {
@@ -22,8 +23,9 @@ static fsm_output_msg_t output_msg = {
     .rs485_tx_len = 0
 };
 
-void update_fsm(fifo_t* fifo, comms_msg_t* comms) {
+void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms) {
 
+    // local buffer to stores the incoming fifo adc messages. 
     data_msg_t incoming_fifo_data = {
         .distance_pd_1 = 0.0, 
         .distance_pd_2 = 0.0,
@@ -34,12 +36,13 @@ void update_fsm(fifo_t* fifo, comms_msg_t* comms) {
         .status = INTERNAL_MSG_NOT_SET
     };
 
-    stream_from_fifo_ema_lpf(fifo, &incoming_fifo_data);
+    // feeds the incoming fifo data to the signal processing stage
+    stream_from_fifo_ema_lpf(fifo_pd1, fifo_pd2, &incoming_fifo_data);
 
-    // logic to transition the sensor state
+    // based on streaming fifo signal processing stage, handle sensor error
     switch(incoming_fifo_data.status) {
         case SENSOR_OK:
-            ctx.error_count = 0;
+            // do nothing
         break;
 
         case SENSOR_SATURATED: 
@@ -66,14 +69,23 @@ void update_fsm(fifo_t* fifo, comms_msg_t* comms) {
         break;
     }
 
-    // state outputs
+    // based on device state, send out appropriate output messages
     switch(ctx.state) {
+
+        // state transition from idle to stream
         case STATE_IDLE: 
-            ctx.state = STATE_STREAMING;
+
+            if(comms->rs485_msg.fsm_action == STREAM_ENABLE) {
+                ctx.state = STATE_STREAMING;
+            } else {
+                ctx.state = STATE_IDLE;
+            }
+            
         break;
 
         case STATE_STREAMING:
-            // strcpy(output_msg.uart_tx, "hello\n\r\0");
+
+            // stream log messages via serial console
             create_log_msg(&incoming_fifo_data);
             output_msg.uart_tx_len = (uint16_t)strlen(output_msg.uart_tx) + 1U;
 
@@ -103,19 +115,34 @@ void update_fsm(fifo_t* fifo, comms_msg_t* comms) {
 
         break;
     }
+
+    // debug statement
+    if(comms->rs485_msg.fsm_action == RS485_ERROR) {
+
+        strcat(output_msg.uart_tx, "RS485 Transmit Failed\r\n");
+
+        // magic number for now deal with it later
+        output_msg.uart_tx_len = sizeof(output_msg.uart_tx) + 23;
+    }
 }
 
+/// @brief Based on the selected FSM output type, the FSM output message gets filled. 
+/// @param out_type 
+/// @param message 
+/// @param filled_len 
+/// @param message_max_size 
 void output_from_fsm(fsm_output_types_t out_type, char* message, uint16_t* filled_len, uint16_t message_max_size) {
 
     if(message == NULL || filled_len == NULL || message_max_size == 0) {
         return;
     }
 
+    
     switch(out_type) {
 
         case UART_TX: 
 
-            // Can't copy in the message when the uart message exceeds the maximum length. 
+            // Guards against copying a message that will exceed the message buffer size
             if(output_msg.uart_tx_len > message_max_size) {
                 return;
             }
@@ -125,11 +152,18 @@ void output_from_fsm(fsm_output_types_t out_type, char* message, uint16_t* fille
         break;
 
         case RS485_TX: 
-
+            
+            // Guards against copying a message that will exceed the message buffer size
+            if(output_msg.rs485_tx_len > message_max_size) {
+                return;
+            }
+            
+            memcpy(message, output_msg.rs485_tx, output_msg.rs485_tx_len);
+            *filled_len = output_msg.rs485_tx_len;
         break;
             
         default:
-            // Should just ignore any invalid output types. 
+            // Should just ignore any invalid output types or can use a debug print statement here. 
         break;
     }
 }
@@ -140,6 +174,8 @@ void reset_fsm() {
     // To Do: Need to wipe the allocated logs and msesages. 
 }
 
+/// @brief creates a log message based on incoming sensor data. The log message is meant to be printed on the serial console. 
+/// @param incoming_fifo_data packaged fifo data containing adc data, timestamps, and sensor statuses
 static void create_log_msg(data_msg_t* incoming_fifo_data) {
     uint32_t distance_pd_1_cm = distance_to_centimeters(incoming_fifo_data->distance_pd_1);
     uint32_t distance_pd_2_cm = distance_to_centimeters(incoming_fifo_data->distance_pd_2);
@@ -158,16 +194,28 @@ static void create_log_msg(data_msg_t* incoming_fifo_data) {
                 (unsigned long)(distance_pd_2_cm / 100U),
                 (unsigned long)(distance_pd_2_cm % 100U),
                 (unsigned long)incoming_fifo_data->timestamp_pd_2);
+    
+    output_msg.uart_tx_len = sizeof(output_msg.uart_tx);
 }   
 
-static uint32_t distance_to_centimeters(float distance) {
-    if(distance <= 0.0f) {
+/// @brief inline function to convert measured measured distance into centimeters. 
+/// @param distance calculated distance based on optics physics. 
+/// @return integer value representing the distance in centimeters. 
+static inline uint32_t distance_to_centimeters(float distance) {
+   if (!isfinite(distance) || distance <= 0.0f) {
         return 0U;
     }
 
-    return (uint32_t)((distance * 100.0f) + 0.5f);
+    float scaled = (distance * 100.0f) + 0.5f;
+    if (scaled >= (float)UINT32_MAX) {
+        return UINT32_MAX;
+    }
+
+    return (uint32_t)scaled;
 }
 
+/// @brief increments the sensor error count until max threshold is reached. Once the max error count is reached, 
+// the fsm state changes to error handling. 
 static void handle_sensor_error() {
 
     if(ctx.error_count == MAX_ERROR_COUNT) {

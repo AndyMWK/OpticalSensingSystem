@@ -26,10 +26,10 @@ void ir_adc_init(IrAdcConfig_t *config, IrAdcContext_t* context) {
     }
 }
 
-void adc_conversion_complete_callback(IrAdcContext_t* context, fifo_t* fifo, uint32_t* buffer) {
+void adc_conversion_complete_callback(IrAdcContext_t* context, fifo_t* fifo_pd1, fifo_t* fifo_pd2, uint32_t* buffer) {
 
     // check for any null pointers
-    if(context == NULL || fifo == NULL || buffer == NULL) {
+    if(context == NULL || fifo_pd1 == NULL || fifo_pd2 == NULL || buffer == NULL) {
         return;
     }
 
@@ -51,8 +51,8 @@ void adc_conversion_complete_callback(IrAdcContext_t* context, fifo_t* fifo, uin
 
     
     // store the message to the fifo. 
-    fifo_enqueue(fifo, &msg_sensor_1);
-    fifo_enqueue(fifo, &msg_sensor_2);
+    fifo_enqueue(fifo_pd1, &msg_sensor_1);
+    fifo_enqueue(fifo_pd2, &msg_sensor_2);
 }
 
 static void pack_adc_msg(IrAdcContext_t* context, adc_msg_t* msg, photodiode_t sensor) {

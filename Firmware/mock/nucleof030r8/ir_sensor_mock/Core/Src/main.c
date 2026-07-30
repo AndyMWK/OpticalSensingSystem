@@ -28,6 +28,7 @@
 #include "logger.h"
 #include "message_types.h"
 #include "rs485.h"
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,11 +54,14 @@ RTC_HandleTypeDef hrtc;
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim14;
+TIM_HandleTypeDef htim15;
 
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart2_tx;
+DMA_HandleTypeDef hdma_usart2_rx;
 
 /* USER CODE BEGIN PV */
 
@@ -66,12 +70,13 @@ IrAdcConfig_t ir_adc_config = {&hadc, &hdma_adc, &hrtc};
 IrAdcContext_t ir_adc_context;
 uint32_t adc_buffer[NUM_PHOTODIODES];
 
-fifo_t fifo_buffer;
+fifo_t fifo_pd1;
 fifo_t fifo_pd2;
 
 volatile uint8_t fsm_tick = 0;
 volatile uint8_t adc_tick = 0;
 volatile uint8_t logger_tick = 0;
+volatile uint8_t rs485_tick = 0;
 
 // allocated memory for buffer message operations
 char msg_buf_a[LOG_BUFFER_SIZE];
@@ -84,7 +89,7 @@ comms_msg_t comms = {
               .fsm_action = SYNC_BYTE_NOT_RECEIVED,
               .data = 0
             }
-          };
+};
 
 uint8_t rs485_buffer[PACKET_LEN];
 
@@ -100,6 +105,8 @@ static void MX_TIM1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_TIM14_Init(void);
+static void MX_TIM15_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -117,10 +124,11 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  fifo_init(&fifo_buffer);
+  fifo_init(&fifo_pd1);
   fifo_init(&fifo_pd2);
   ir_adc_init(&ir_adc_config, &ir_adc_context);
   init_log_buffer();
+  init_rs485(&huart1);
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -148,13 +156,16 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_TIM3_Init();
+  MX_TIM14_Init();
+  MX_TIM15_Init();
   /* USER CODE BEGIN 2 */
   HAL_ADC_Start_DMA(&hadc, adc_buffer, NUM_PHOTODIODES);
-  HAL_UART_Init(&huart1);
-  HAL_UART_Receive_DMA(&huart1, rs485_buffer, 4);
+  HAL_UART_Receive_DMA(&huart1, rs485_buffer, PACKET_LEN);
   //HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_OC_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_OC_Start_IT(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_OC_Start_IT(&htim3, TIM_CHANNEL_2);
+  HAL_TIM_OC_Start_IT(&htim15, TIM_CHANNEL_1);
+  HAL_TIM_OC_Start_IT(&htim14, TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -168,21 +179,34 @@ int main(void)
     // FSM update task run at 100Hz
     if(fsm_tick) {
 
+      // interrupt sets the rs485 receive flag and this is checked in the super loop. 
       if(comms.rs485_flag) {
+
+        // reads the raw bytes and turns that into an actionable message for the FSM. 
         read_packet(rs485_buffer, &(comms.rs485_msg));
+        comms.rs485_flag = 0;
       }
       
-      update_fsm(&fifo_buffer, &comms);
+      update_fsm(&fifo_pd1, &fifo_pd2, &comms);
       fsm_tick = 0;
-      comms.rs485_flag = 0;
     }
 
     // ADC constantly runs in the background via DMA
     if(adc_tick) {
-      adc_conversion_complete_callback(&ir_adc_context, &fifo_buffer, adc_buffer);
+      adc_conversion_complete_callback(&ir_adc_context, &fifo_pd1, &fifo_pd2, adc_buffer);
       adc_tick = 0;
     }
     
+    // RS485 TX runs at 2 Hz
+    if(rs485_tick) {
+
+      if(!send_packet(ACK_HEARTBEAT, 0x00)) {
+          comms.rs485_msg.fsm_action = RS485_ERROR;
+      }
+
+      rs485_tick = 0;
+    }
+
     // UART logger runs at 1Hz
     if(logger_tick) {
       output_from_fsm(UART_TX, msg_buf_a, &msg_buf_a_len, LOG_BUFFER_SIZE);
@@ -190,8 +214,8 @@ int main(void)
       logger_tick = 0;
     }
 
-    
-    // default task to just drain the data into serial.
+  
+    // Drains the data into serial in the background.
     pop_log(&huart2);
 
   }
@@ -270,10 +294,10 @@ static void MX_ADC_Init(void)
   hadc.Init.EOCSelection = ADC_EOC_SEQ_CONV;
   hadc.Init.LowPowerAutoWait = DISABLE;
   hadc.Init.LowPowerAutoPowerOff = DISABLE;
-  hadc.Init.ContinuousConvMode = ENABLE;
+  hadc.Init.ContinuousConvMode = DISABLE;
   hadc.Init.DiscontinuousConvMode = DISABLE;
-  hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-  hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T1_CC4;
+  hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_RISING;
   hadc.Init.DMAContinuousRequests = ENABLE;
   hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
   if (HAL_ADC_Init(&hadc) != HAL_OK)
@@ -360,7 +384,7 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 0;
+  htim1.Init.Prescaler = 32;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -379,6 +403,10 @@ static void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
+  if (HAL_TIM_OC_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
@@ -393,6 +421,13 @@ static void MX_TIM1_Init(void)
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 10000;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
+  if (HAL_TIM_OC_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
   }
@@ -434,9 +469,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 64;
+  htim3.Init.Prescaler = 15;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 65535;
+  htim3.Init.Period = 49999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
@@ -459,21 +494,125 @@ static void MX_TIM3_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_TIMING;
-  sConfigOC.Pulse = 600;
+  sConfigOC.Pulse = 60;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_OC_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
-  sConfigOC.Pulse = 60000;
-  if (HAL_TIM_OC_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
   /* USER CODE BEGIN TIM3_Init 2 */
 
   /* USER CODE END TIM3_Init 2 */
+
+}
+
+/**
+  * @brief TIM14 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM14_Init(void)
+{
+
+  /* USER CODE BEGIN TIM14_Init 0 */
+
+  /* USER CODE END TIM14_Init 0 */
+
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM14_Init 1 */
+
+  /* USER CODE END TIM14_Init 1 */
+  htim14.Instance = TIM14;
+  htim14.Init.Prescaler = 63;
+  htim14.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim14.Init.Period = 62499;
+  htim14.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim14.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 60;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_OC_ConfigChannel(&htim14, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM14_Init 2 */
+
+  /* USER CODE END TIM14_Init 2 */
+
+}
+
+/**
+  * @brief TIM15 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM15_Init(void)
+{
+
+  /* USER CODE BEGIN TIM15_Init 0 */
+
+  /* USER CODE END TIM15_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
+
+  /* USER CODE BEGIN TIM15_Init 1 */
+
+  /* USER CODE END TIM15_Init 1 */
+  htim15.Instance = TIM15;
+  htim15.Init.Prescaler = 127;
+  htim15.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim15.Init.Period = 60000;
+  htim15.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim15.Init.RepetitionCounter = 0;
+  htim15.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_OC_Init(&htim15) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim15, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 60;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
+  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  if (HAL_TIM_OC_ConfigChannel(&htim15, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+  if (HAL_TIMEx_ConfigBreakDeadTime(&htim15, &sBreakDeadTimeConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM15_Init 2 */
+
+  /* USER CODE END TIM15_Init 2 */
 
 }
 
@@ -493,7 +632,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 38400;
+  huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -502,7 +641,7 @@ static void MX_USART1_UART_Init(void)
   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_RS485Ex_Init(&huart1, UART_DE_POLARITY_HIGH, 0, 0) != HAL_OK)
+  if (HAL_RS485Ex_Init(&huart1, UART_DE_POLARITY_HIGH, 10, 10) != HAL_OK)
   {
     Error_Handler();
   }
@@ -615,27 +754,40 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  if (htim->Instance != TIM3) {
+  if (  htim->Instance != TIM3 && htim->Instance != TIM1 
+        && htim->Instance != TIM15 && htim->Instance != TIM14) {
       return;
   }
 
   // internal logger and FSM timing
 
   // FSM tick updates at 100 Hz
-  if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+  if (htim->Instance == TIM3) {
       fsm_tick = 1;
   }
 
   // logger updates at 1 Hz
-  if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2) {
+  if (htim->Instance == TIM15) {
       logger_tick = 1;
   }
+
+  // rs485 heartbeat check at 2 Hz
+  if (htim->Instance == TIM14) {
+    rs485_tick = 1;
+  }
+
 }
 
 void HAL_UART_RxCpltCallback (UART_HandleTypeDef * huart) {
 
-  // need to check which uart channel. 
-  comms.rs485_flag = 1;
+  if(huart->Instance == USART1) {
+    comms.rs485_flag = 1;
+  }
+  
+}
+
+void HAL_UART_TxCpltCallback (UART_HandleTypeDef* huart) {
+  // no callbacks registered yet. 
 }
 /* USER CODE END 4 */
 

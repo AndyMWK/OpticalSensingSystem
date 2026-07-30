@@ -70,6 +70,7 @@ typedef struct rs485_packet_t {
 
 /// @brief actions that will be communicated between the actual rs485 interface and the fsm. 
 typedef enum rs485_fsm_actions_t {
+    START_STREAMING_RS485,
     LPF_ENABLE, 
     LPF_DISABLE,
     STREAM_ENABLE, 
@@ -77,9 +78,11 @@ typedef enum rs485_fsm_actions_t {
     LED_BRIGHTNESS_SET, 
     SYNC_BYTE_NOT_RECEIVED, 
     INVALID_DATA_BYTE, 
-    INVALID_CMD_BYTE
+    INVALID_CMD_BYTE, 
+    RS485_ERROR
 } rs485_fsm_actions_t;
 
+/// @brief interface between the FSM and the RS485 comms interface. Only used for RS485 to FSM at this moment. 
 typedef struct rs485_interface_msg_t {
 
     rs485_fsm_actions_t fsm_action; 
