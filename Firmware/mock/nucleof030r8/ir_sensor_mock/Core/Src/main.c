@@ -196,7 +196,7 @@ int main(void)
       fsm_tick = 0;
     }
 
-    // ADC constantly runs in the background via DMA
+    // ADC is triggered by timer 1
     if(adc_tick) {
       adc_conversion_complete_callback(&ir_adc_context, &fifo_pd1, &fifo_pd2, adc_buffer);
 
