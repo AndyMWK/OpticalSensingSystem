@@ -67,7 +67,8 @@ DMA_HandleTypeDef hdma_usart1_rx;
 // initialization of necessary peripheral data structures
 IrAdcConfig_t ir_adc_config = {&hadc, &hdma_adc, &hrtc};
 IrAdcContext_t ir_adc_context;
-uint32_t adc_buffer[NUM_PHOTODIODES];
+uint32_t adc_buffer_consume[NUM_PHOTODIODES];
+uint32_t adc_buffer_dma[NUM_PHOTODIODES];
 
 fifo_t fifo_pd1;
 fifo_t fifo_pd2;
@@ -160,7 +161,7 @@ int main(void)
   MX_TIM15_Init();
   MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
-  HAL_ADC_Start_DMA(&hadc, adc_buffer, NUM_PHOTODIODES);
+  HAL_ADC_Start_DMA(&hadc, adc_buffer_dma, NUM_PHOTODIODES);
   HAL_UART_Receive_DMA(&huart1, rs485_buffer, PACKET_LEN);
   
   HAL_TIM_Base_Start(&htim1);
@@ -198,7 +199,7 @@ int main(void)
 
     // ADC is triggered by timer 1
     if(adc_tick) {
-      adc_conversion_complete_callback(&ir_adc_context, &fifo_pd1, &fifo_pd2, adc_buffer);
+      adc_conversion_complete_callback(&ir_adc_context, &fifo_pd1, &fifo_pd2, adc_buffer_consume);
 
       adc_tick = 0;
     }
@@ -802,7 +803,15 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
     return;
   }
 
+  // Enter critical section for double buffering ADC DMA buffers. 
+
+  __disable_irq();
+
   adc_tick = 1;
+  memcpy(&adc_buffer_consume, &adc_buffer_dma, NUM_PHOTODIODES*sizeof(uint32_t));
+
+  __enable_irq();
+  
 }
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
