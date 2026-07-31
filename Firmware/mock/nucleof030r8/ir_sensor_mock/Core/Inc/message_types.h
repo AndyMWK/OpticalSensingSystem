@@ -21,7 +21,7 @@ typedef enum sensor_status_t {
     SENSOR_SATURATED,
     SENSOR_OUT_OF_RANGE, 
     SENSOR_RATE_LIMIT, 
-    SENSOR_FIFO_FAILED, 
+    SENSOR_FIFO_EMPTY, 
     INTERNAL_BUFFERS_FAILED, 
     INTERNAL_MSG_NOT_SET
 } sensor_status_t;
@@ -37,7 +37,7 @@ typedef struct data_msg_t {
 } data_msg_t;
 
 //----- FSM Output Message Types -----
-#define TX_MSG_BUFFER 64
+#define TX_MSG_BUFFER 128
 #define RS485_MSG_BUFFER 32
 
 typedef enum fsm_output_types_t {
@@ -47,10 +47,8 @@ typedef enum fsm_output_types_t {
 
 typedef struct fsm_output_msg_t {
     char uart_tx[TX_MSG_BUFFER];
-    uint16_t uart_tx_len;
 
     char rs485_tx[RS485_MSG_BUFFER];
-    uint16_t rs485_tx_len;
 } fsm_output_msg_t;
 
 //----- RS485 Message Types -----
@@ -70,7 +68,6 @@ typedef struct rs485_packet_t {
 
 /// @brief actions that will be communicated between the actual rs485 interface and the fsm. 
 typedef enum rs485_fsm_actions_t {
-    START_STREAMING_RS485,
     LPF_ENABLE, 
     LPF_DISABLE,
     STREAM_ENABLE, 

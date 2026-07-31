@@ -6,7 +6,7 @@ static float convert_to_distance(uint16_t adc);
 /// @brief
 static sensor_status_t pack_adc_msg_to_data_msg(adc_msg_t adc_msg[], data_msg_t* data_msg);
 
-//-----PV Declarations-----
+//-----PV Instantiations-----
 
 static ema_lpf_cache_t ema_mem = {
     .pd1_adc_prev = 0,
@@ -25,7 +25,7 @@ void stream_from_fifo(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* data_msg) 
     // Dequeue one sample from each photodiode-specific FIFO.
     if(!fifo_dequeue(fifo_pd1, &adc_msg[PHOTODIODE_1]) ||
        !fifo_dequeue(fifo_pd2, &adc_msg[PHOTODIODE_2])) {
-        data_msg->status = SENSOR_FIFO_FAILED;
+        data_msg->status = SENSOR_FIFO_EMPTY;
         return;
     }
 
@@ -44,7 +44,7 @@ void stream_from_fifo_ema_lpf(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* da
     // Dequeue one sample from each photodiode-specific FIFO.
     if(!fifo_dequeue(fifo_pd1, &adc_msg[PHOTODIODE_1]) ||
        !fifo_dequeue(fifo_pd2, &adc_msg[PHOTODIODE_2])) {
-        data_msg->status = SENSOR_FIFO_FAILED;
+        data_msg->status = SENSOR_FIFO_EMPTY;
         return;
     }
 
@@ -121,18 +121,6 @@ static sensor_status_t pack_adc_msg_to_data_msg(adc_msg_t adc_msg[], data_msg_t*
         return INTERNAL_BUFFERS_FAILED;
     }
 
-    // To Do: setup build flags to skip the error states when just working on mock/prototype
-
-    // check if any of the photodiodes are saturated.
-    if( adc_msg->adc_value >= SATURATION_LIMIT || (adc_msg + 1)->adc_value >= SATURATION_LIMIT ) {
-        //return SENSOR_SATURATED;
-    }
-
-    // check if any of the photodiodes are currently out of range.
-    if( adc_msg->adc_value <= OUT_OF_RANGE_LIMIT || (adc_msg + 1)->adc_value <= OUT_OF_RANGE_LIMIT ) {
-        //return SENSOR_OUT_OF_RANGE;;
-    }
-
     // Checks to ensure that the correct photodiode is being read. 
     if( adc_msg[PHOTODIODE_1].photodiode == PHOTODIODE_1 ) {
         data_msg->distance_pd_1 = convert_to_distance(adc_msg->adc_value);
@@ -142,6 +130,16 @@ static sensor_status_t pack_adc_msg_to_data_msg(adc_msg_t adc_msg[], data_msg_t*
     if( adc_msg[PHOTODIODE_2].photodiode == PHOTODIODE_2) {
         data_msg->distance_pd_2 = convert_to_distance( (adc_msg + 1)->adc_value );
         data_msg->timestamp_pd_2 = (adc_msg + 1)->timestamp;
+    }
+
+    // check if any of the photodiodes are saturated.
+    if( adc_msg->adc_value >= SATURATION_LIMIT || (adc_msg + 1)->adc_value >= SATURATION_LIMIT ) {
+        return SENSOR_SATURATED;
+    }
+
+    // check if any of the photodiodes are currently out of range.
+    if( adc_msg->adc_value <= OUT_OF_RANGE_LIMIT || (adc_msg + 1)->adc_value <= OUT_OF_RANGE_LIMIT ) {
+        return SENSOR_OUT_OF_RANGE;
     }
     
     return SENSOR_OK;
