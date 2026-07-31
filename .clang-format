@@ -1,0 +1,63 @@
+# .clang-format
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+IndentCaseLabels: true
+AccessModifierOffset: -4
+
+# Braces — Allman style matches CubeMX-generated HAL code
+BreakBeforeBraces: Allman
+
+# Line length
+ColumnLimit: 100
+
+# Pointers/references — align to type (int* p, not int *p)
+PointerAlignment: Left
+ReferenceAlignment: Left
+DerivePointerAlignment: false
+
+# Spacing
+SpaceBeforeParens: ControlStatements
+SpaceAfterCStyleCast: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpaceBeforeAssignmentOperators: true
+SpacesBeforeTrailingComments: 2
+
+# Alignment
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignTrailingComments: true
+AlignAfterOpenBracket: Align
+AlignEscapedNewlines: Left
+
+# Function/control statement formatting
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AlwaysBreakAfterReturnType: None
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+
+# Includes — keep grouped, don't reorder aggressively
+# (CubeMX-generated files rely on specific include order for USER CODE blocks)
+SortIncludes: Never
+IncludeBlocks: Preserve
+
+# Misc
+MaxEmptyLinesToKeep: 2
+KeepEmptyLinesAtTheStartOfBlocks: false
+FixNamespaceComments: true
+Cpp11BracedListStyle: true
+NamespaceIndentation: None
+
+# Penalties (fine-tuning line-break decisions, defaults are fine for most)
+PenaltyBreakAssignment: 2
+PenaltyBreakBeforeFirstCallParameter: 1
+PenaltyReturnTypeOnItsOwnLine: 200

@@ -1,0 +1,44 @@
+# .clang-tidy
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  concurrency-*,
+  misc-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -misc-non-private-member-variables-in-classes,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-uppercase-literal-suffix,
+  -cert-dcl37-c,
+  -cert-dcl51-cpp
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '^(App|Core/Inc)/.*'
+FormatStyle: file
+
+CheckOptions:
+  - key: readability-identifier-naming.FunctionCase
+    value: lower_case
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.EnumConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.TypedefCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypedefSuffix
+    value: '_t'
+  - key: readability-function-cognitive-complexity.Threshold
+    value: 40
+  - key: bugprone-suspicious-include.HeaderFilterRegex
+    value: ''
