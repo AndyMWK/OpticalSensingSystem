@@ -3610,10 +3610,13 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_utils.c:363:20: style: Variable 'pllfreq' is assigned a value that is never used. [unreadVariable]
   uint32_t pllfreq = 0U;
                    ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:150:0: style: The function 'DMA1_Channel1_IRQHandler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:152:0: style: The function 'DMA1_Channel1_IRQHandler' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:164:0: style: The function 'DMA1_Channel2_3_IRQHandler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:166:0: style: The function 'DMA1_Channel2_3_IRQHandler' is never used. [unusedFunction]
+
+^
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:180:0: style: The function 'DMA1_Channel4_5_IRQHandler' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc_ex.c:95:0: style: The function 'HAL_ADCEx_Calibration_Start' is never used. [unusedFunction]
@@ -4999,9 +5002,6 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c:2973:0: style: The function 'HAL_UART_GetState' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c:2279:0: style: The function 'HAL_UART_IRQHandler' is never used. [unusedFunction]
-
-^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_uart.c:1251:0: style: The function 'HAL_UART_Receive' is never used. [unusedFunction]
 
 ^
@@ -5080,7 +5080,7 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_wwdg.c:342:0: style: The function 'HAL_WWDG_Refresh' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:88:0: style: The function 'HardFault_Handler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:90:0: style: The function 'HardFault_Handler' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/Core_A/Source/irq_ctrl_gic.c:275:0: style: The function 'IRQ_EndOfInterrupt' is never used. [unusedFunction]
@@ -5230,7 +5230,7 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_utils.c:157:0: style: The function 'LL_mDelay' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:73:0: style: The function 'NMI_Handler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:75:0: style: The function 'NMI_Handler' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/RTOS2/Source/os_tick_gtim.c:157:0: style: The function 'OS_Tick_AcknowledgeIRQ' is never used. [unusedFunction]
@@ -5260,16 +5260,16 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/RTOS2/Source/os_tick_gti
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/RTOS2/Source/os_tick_gtim.c:49:0: style: The function 'OS_Tick_Setup' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:116:0: style: The function 'PendSV_Handler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:118:0: style: The function 'PendSV_Handler' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_timebase_rtc_alarm_template.c:306:0: style: The function 'RTC_IRQHandler' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:103:0: style: The function 'SVC_Handler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:105:0: style: The function 'SVC_Handler' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:129:0: style: The function 'SysTick_Handler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:131:0: style: The function 'SysTick_Handler' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/system_stm32f0xx.c:178:0: style: The function 'SystemCoreClockUpdate' is never used. [unusedFunction]
@@ -5278,13 +5278,13 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/system_stm32f0xx.c:178:0: sty
 Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/system_stm32f0xx.c:126:0: style: The function 'SystemInit' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:192:0: style: The function 'TIM14_IRQHandler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:208:0: style: The function 'TIM14_IRQHandler' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:206:0: style: The function 'TIM15_IRQHandler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:222:0: style: The function 'TIM15_IRQHandler' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:178:0: style: The function 'TIM3_IRQHandler' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:194:0: style: The function 'TIM3_IRQHandler' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_timebase_tim_template.c:165:0: style: The function 'TIM6_DAC_IRQHandler' is never used. [unusedFunction]
@@ -5303,6 +5303,9 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/Core/Template/ARMv8-M/tz
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/Core/Template/ARMv8-M/tz_context.c:170:0: style: The function 'TZ_StoreContext_S' is never used. [unusedFunction]
+
+^
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/stm32f0xx_it.c:236:0: style: The function 'USART2_IRQHandler' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_ll_usb.c:64:0: style: The function 'USB_CoreInit' is never used. [unusedFunction]
@@ -5947,7 +5950,7 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/Source/StatisticsFun
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/Source/StatisticsFunctions/arm_var_q31.c:64:0: style: The function 'arm_var_q31' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/main.c:879:0: style: The function 'assert_failed' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/main.c:891:0: style: The function 'assert_failed' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/JTest/src/jtest_trigger_action.c:29:0: style: The function 'dump_data' is never used. [unusedFunction]
@@ -5972,6 +5975,9 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Co
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/JTest/src/jtest_trigger_action.c:14:0: style: The function 'group_start' is never used. [unusedFunction]
+
+^
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:364:0: style: The function 'handle_internal_msg_failed' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/syscalls.c:44:0: style: The function 'initialise_monitor_handles' is never used. [unusedFunction]
@@ -6655,7 +6661,7 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Re
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/RefLibs/src/StatisticsFunctions/var.c:25:0: style: The function 'ref_var_q31' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:189:0: style: The function 'reset_fsm' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:203:0: style: The function 'reset_fsm' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/rs485.c:96:0: style: The function 'send_packet' is never used. [unusedFunction]
