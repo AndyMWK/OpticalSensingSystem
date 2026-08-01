@@ -50,3 +50,6 @@ Project Outputs*/
 
 # Folder to save each comparison results
 CompareHistory/
+
+# cpp-check output file
+cppcheck_report.txt
