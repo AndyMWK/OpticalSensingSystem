@@ -1,5 +1,8 @@
 #include "fsm.h"
 
+// To do: allow for async actions/calls from the FSM. 
+// Architect PWM output from the FSM. 
+
 // Private Helper Functions
 static void update_state_rs485_cmd(comms_msg_t* comms);
 static void handle_sensor_error(void);
@@ -33,6 +36,15 @@ static ir_led_pwm_t ir_led_pwm = {
     .htim = NULL
 };
 
+static uint8_t async_signal = 0;
+
+static async_log_cb_t log_callback = NULL;
+
+/// @brief main function loop that updates the FSM. 
+/// @param fifo_pd1 fifo handle for photodiode 1
+/// @param fifo_pd2 fifo handle for photodiode 2
+/// @param comms    containers for the RS485 and UART TX/RX buffers
+/// @param async_signal asynchronous signal that indicates to other modules that FSM output needs to be handled immediately. 
 void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms) {
 
     // local buffer to stores the incoming fifo adc messages. 
@@ -76,6 +88,7 @@ void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms) {
         break;
 
         case INTERNAL_MSG_NOT_SET: 
+            handle_internal_msg_failed();
         break;
 
         default:
@@ -238,6 +251,35 @@ static void create_log_msg(data_msg_t* incoming_fifo_data) {
                 (unsigned long)incoming_fifo_data->timestamp_pd_2);
 }   
 
+uint8_t handle_async_request(void) {
+
+    if(log_callback == NULL) {
+        return 0;
+    }
+
+    if(async_signal) {
+
+        // directly output elements stored on the uart log. 
+        log_callback(output_msg.uart_tx, strlen(output_msg.uart_tx));
+        async_signal = 0;
+
+        return 1;
+    }
+
+    return 0;
+
+}
+
+void register_log_callback(async_log_cb_t cb_func) {
+
+    if(cb_func == NULL) {
+        return;
+    }
+
+    log_callback = cb_func;
+
+}
+
 static void update_state_rs485_cmd(comms_msg_t* comms) {
 
     /*
@@ -253,6 +295,9 @@ static void update_state_rs485_cmd(comms_msg_t* comms) {
         INVALID_CMD_BYTE, 
         RS485_ERROR
     */
+
+    // update the async signal to indicate incoming RS485 message
+    async_signal = 1;
 
     switch(comms->rs485_msg.fsm_action) {
         case LPF_ENABLE: 
@@ -299,22 +344,6 @@ static void update_state_rs485_cmd(comms_msg_t* comms) {
     }   
 }
 
-/// @brief inline function to convert measured measured distance into centimeters. 
-/// @param distance calculated distance based on optics physics. 
-/// @return integer value representing the distance in centimeters. 
-static inline uint32_t distance_to_centimeters(float distance) {
-   if (!isfinite(distance) || distance <= 0.0f) {
-        return 0U;
-    }
-
-    float scaled = (distance * 100.0f) + 0.5f;
-    if (scaled >= (float)UINT32_MAX) {
-        return UINT32_MAX;
-    } 
-
-    return (uint32_t)scaled;
-}
-
 /// @brief increments the sensor error count until max threshold is reached. Once the max error count is reached, 
 // the fsm state changes to error handling. 
 static void handle_sensor_error(void) {
@@ -334,9 +363,11 @@ static void handle_sensor_saturated_error(void) {
     ctx.error_count++;
 
     if (ctx.state == STATE_PWM_DUTY_CHANGE) {
+        async_signal = 0;
         return;
     }
 
+    async_signal = 1;
     ctx.state = STATE_SATURATION;
 }
 
@@ -344,26 +375,30 @@ static void handle_sensor_saturated_error(void) {
 /// @param  void
 static void handle_fifo_failed_error(void) {
     ctx.error_count++;
+    async_signal = 1;
+
     ctx.state = STATE_FIFO_EMPTY;
 }
 
 /// @brief  state transition when the sensor adc value is below threshold. 
 /// @param  void
-static void handle_sensor_out_of_range_error(void) {
+static void handle_sensor_out_of_range_error() {
     ctx.error_count++;
 
     if (ctx.state == STATE_PWM_DUTY_CHANGE) {
+        async_signal = 0;
         return;
     }
 
+    async_signal = 1;
     ctx.state = STATE_TOO_FAR;
 }
 
 /// @brief  state transition when the internal message buffers are uninitalized. 
 /// @param  void
-static void handle_internal_msg_failed(void) {
+static void handle_internal_msg_failed() {
     ctx.error_count++;
-
+    async_signal = 1;
     // This error means that one of the message buffers are unallocated. 
     ctx.state = STATE_INTERNAL_BUFFER_ERROR;
 }
@@ -403,8 +438,23 @@ static inline void append_byte_to_uart(uint16_t byte) {
 /// @param void 
 static inline void clear_output_uart_buffer(void) {
 
-    // clear the uart tx buffer: 
     memset(output_msg.uart_tx, 0, sizeof(output_msg.uart_tx));
 
+}
+
+/// @brief inline function to convert measured measured distance into centimeters. 
+/// @param distance calculated distance based on optics physics. 
+/// @return integer value representing the distance in centimeters. 
+static inline uint32_t distance_to_centimeters(float distance) {
+   if (!isfinite(distance) || distance <= 0.0f) {
+        return 0U;
+    }
+
+    float scaled = (distance * 100.0f) + 0.5f;
+    if (scaled >= (float)UINT32_MAX) {
+        return UINT32_MAX;
+    } 
+
+    return (uint32_t)scaled;
 }
 

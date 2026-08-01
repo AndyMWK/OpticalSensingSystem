@@ -11,6 +11,7 @@
 #include <math.h>
 
 #define MAX_ERROR_COUNT 10
+#define MAX_ASYNC_CALLBACKS_REGISTERED 3
 
 /// @brief All FSM States
 typedef enum fsm_state_t {
@@ -48,6 +49,8 @@ typedef struct ir_led_pwm_t {
 
 } ir_led_pwm_t;
 
+typedef void (*async_log_cb_t)(char* msg_buf, uint16_t msg_len);
+
 // Public API functions for the FSM module.
 
 /// @brief main function used for updating the actual FSM
@@ -61,5 +64,11 @@ void init_pwm_interface(TIM_HandleTypeDef* htim);
 
 /// @brief resets the state of the FSM. To Do: also wipe the cached logs and input messages as well. 
 void reset_fsm(void);
+
+/// @brief Handles the asynchronous signal request
+/// @param void
+uint8_t handle_async_request(void);
+
+void register_log_callback(async_log_cb_t cb_func);
 
 #endif

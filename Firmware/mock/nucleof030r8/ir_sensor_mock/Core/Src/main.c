@@ -176,6 +176,8 @@ int main(void)
   init_pwm_interface(&htim16);
   HAL_TIM_PWM_Init(&htim16);
   HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);
+
+  register_log_callback(&push_log);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -198,6 +200,11 @@ int main(void)
       }
       
       update_fsm(&fifo_pd1, &fifo_pd2, &comms);
+      
+      if(handle_async_request()) {
+        pop_log(&huart2);
+      }
+      
       fsm_tick = 0;
     }
 
@@ -226,7 +233,6 @@ int main(void)
       logger_tick = 0;
     }
 
-  
     // Drains the data into serial in the background.
     pop_log(&huart2);
 

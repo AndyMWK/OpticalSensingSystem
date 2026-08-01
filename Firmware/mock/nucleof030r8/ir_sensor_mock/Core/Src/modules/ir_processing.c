@@ -48,8 +48,8 @@ void stream_from_fifo_ema_lpf(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* da
         return;
     }
 
-    adc_msg[PHOTODIODE_1].adc_value = (float)SMOOTHING_FACTOR_EMA * (float)ema_mem.pd1_adc_prev + (1.0 - (float)SMOOTHING_FACTOR_EMA) * (float)adc_msg[PHOTODIODE_1].adc_value;
-    adc_msg[PHOTODIODE_2].adc_value = (float)SMOOTHING_FACTOR_EMA * (float)ema_mem.pd2_adc_prev + (1.0 - (float)SMOOTHING_FACTOR_EMA) * (float)adc_msg[PHOTODIODE_2].adc_value;
+    adc_msg[PHOTODIODE_1].adc_value = (float)SMOOTHING_FACTOR_EMA * (float)ema_mem.pd1_adc_prev + (1.0f - (float)SMOOTHING_FACTOR_EMA) * (float)adc_msg[PHOTODIODE_1].adc_value;
+    adc_msg[PHOTODIODE_2].adc_value = (float)SMOOTHING_FACTOR_EMA * (float)ema_mem.pd2_adc_prev + (1.0f - (float)SMOOTHING_FACTOR_EMA) * (float)adc_msg[PHOTODIODE_2].adc_value;
 
     ema_mem.pd1_adc_prev = adc_msg[PHOTODIODE_1].adc_value;
     ema_mem.pd2_adc_prev = adc_msg[PHOTODIODE_2].adc_value;

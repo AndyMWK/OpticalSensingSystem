@@ -13,22 +13,22 @@ void init_log_buffer() {
 
 void push_log(char* msg, uint16_t msg_size) {
 
-    if(msg_size > LOG_BUFFER_SIZE - log_buffer_push_ptr) {
+    if(msg == NULL) {
         return;
     }
 
     //copy the message into log buffer RAM. 
     memcpy(&log_buffer[log_buffer_push_ptr], msg, msg_size);
 
-    log_buffer_push_ptr = log_buffer_push_ptr + msg_size;
+    //log_buffer_push_ptr = log_buffer_push_ptr + msg_size;
     //message_count++;
 }
 
 void pop_log(UART_HandleTypeDef *huart) {
 
-    if(message_count == 0) {
-        return; // buffer is empty, just exit. 
-    }
+    // if(message_count == 0) {
+    //     return; // buffer is empty, just exit. 
+    // }
 
     // uint16_t pop_index = log_buffer_pop_ptr;
     // uint16_t pop_size = 0;
