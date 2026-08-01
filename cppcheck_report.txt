@@ -5947,7 +5947,7 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/Source/StatisticsFun
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/Source/StatisticsFunctions/arm_var_q31.c:64:0: style: The function 'arm_var_q31' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/main.c:870:0: style: The function 'assert_failed' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/main.c:879:0: style: The function 'assert_failed' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/JTest/src/jtest_trigger_action.c:29:0: style: The function 'dump_data' is never used. [unusedFunction]
