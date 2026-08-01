@@ -21,6 +21,7 @@ typedef enum fsm_state_t {
     STATE_SATURATION,
     STATE_TOO_FAR,
     STATE_FIFO_EMPTY,
+    STATE_INTERNAL_BUFFER_ERROR,
     STATE_ERROR
 } fsm_state_t;
 
@@ -59,6 +60,6 @@ void output_from_fsm(fsm_output_types_t out_type, char* message, uint16_t* fille
 void init_pwm_interface(TIM_HandleTypeDef* htim);
 
 /// @brief resets the state of the FSM. To Do: also wipe the cached logs and input messages as well. 
-void reset_fsm();
+void reset_fsm(void);
 
 #endif

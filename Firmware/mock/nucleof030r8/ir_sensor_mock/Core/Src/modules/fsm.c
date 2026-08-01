@@ -2,10 +2,11 @@
 
 // Private Helper Functions
 static void update_state_rs485_cmd(comms_msg_t* comms);
-static void handle_sensor_error();
+static void handle_sensor_error(void);
 static void handle_fifo_failed_error(void);
 static void handle_sensor_saturated_error(void);
 static void handle_sensor_out_of_range_error(void);
+static void handle_internal_msg_failed(void);
 static void create_log_msg(data_msg_t* incoming_fifo_data);
 
 
@@ -23,7 +24,6 @@ static fsm_context_t ctx = {
 
 static fsm_output_msg_t output_msg = {
     .uart_tx = "",
-
     .rs485_tx = "",
 };
 
@@ -56,7 +56,7 @@ void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms) {
             if(comms->rs485_flag) {
                 update_state_rs485_cmd(comms);
             }
-            
+
         break;
 
         case SENSOR_SATURATED: 
@@ -117,12 +117,22 @@ void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms) {
 
             ctx.state = STATE_PWM_DUTY_CHANGE;
             append_log_msg_to_uart("PWM Duty: \r\n");
+
+            if(incoming_fifo_data.status == SENSOR_OK) {
+                ctx.state = STATE_STREAMING;
+            }
+            
         break;
 
         case STATE_TOO_FAR:  
             append_log_msg_to_uart("Sensor too far, Brightening.\r\n");
             ctx.state = STATE_PWM_DUTY_CHANGE;
         break;
+
+        case STATE_SATURATION: 
+            append_log_msg_to_uart("Sensor too close, Dimming.\r\n");
+            ctx.state = STATE_PWM_DUTY_CHANGE;
+        break;  
 
         case STATE_ERROR: 
             append_log_msg_to_uart("Maximum Error Count Reached. Device Restart Recommended...\r\n");
@@ -135,6 +145,10 @@ void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms) {
                 ctx.state = STATE_STREAMING;
             }
 
+        break;
+
+        case STATE_INTERNAL_BUFFER_ERROR: 
+            append_log_msg_to_uart("Internal Message Buffers uninitialized. Device Restart Recommended...\r\n");
         break;
 
         default: 
@@ -186,7 +200,7 @@ void output_from_fsm(fsm_output_types_t out_type, char* message, uint16_t* fille
 }
 
 /// @brief Resets the FSM state to IDLE and its error count. Also clears the output uart buffer. 
-void reset_fsm() {
+void reset_fsm(void) {
     ctx.state = STATE_IDLE;
     ctx.error_count = 0;
     clear_output_uart_buffer();
@@ -296,18 +310,9 @@ static inline uint32_t distance_to_centimeters(float distance) {
     float scaled = (distance * 100.0f) + 0.5f;
     if (scaled >= (float)UINT32_MAX) {
         return UINT32_MAX;
-    }
+    } 
 
     return (uint32_t)scaled;
-}
-
-/// @brief 
-/// @param  
-static inline void clear_output_uart_buffer(void) {
-
-    // clear the uart tx buffer: 
-    memset(output_msg.uart_tx, 0, sizeof(output_msg.uart_tx));
-
 }
 
 /// @brief increments the sensor error count until max threshold is reached. Once the max error count is reached, 
@@ -323,8 +328,8 @@ static void handle_sensor_error(void) {
     ctx.error_count++;
 }
 
-/// @brief 
-/// @param  
+/// @brief  state transition when sensor is saturated. 
+/// @param  void
 static void handle_sensor_saturated_error(void) {
     ctx.error_count++;
 
@@ -335,15 +340,15 @@ static void handle_sensor_saturated_error(void) {
     ctx.state = STATE_SATURATION;
 }
 
-/// @brief 
-/// @param  
+/// @brief  state transition when the fifo failed to dequeue
+/// @param  void
 static void handle_fifo_failed_error(void) {
     ctx.error_count++;
     ctx.state = STATE_FIFO_EMPTY;
 }
 
-/// @brief 
-/// @param  
+/// @brief  state transition when the sensor adc value is below threshold. 
+/// @param  void
 static void handle_sensor_out_of_range_error(void) {
     ctx.error_count++;
 
@@ -354,6 +359,20 @@ static void handle_sensor_out_of_range_error(void) {
     ctx.state = STATE_TOO_FAR;
 }
 
+/// @brief  state transition when the internal message buffers are uninitalized. 
+/// @param  void
+static void handle_internal_msg_failed(void) {
+    ctx.error_count++;
+
+    // This error means that one of the message buffers are unallocated. 
+    ctx.state = STATE_INTERNAL_BUFFER_ERROR;
+}
+
+//----- Inline Functions -----
+
+/// @brief appends a string to the output buffer for the logger. 
+/// @param msg string to be appended
+/// @return 0 on unsuccessful append operation, 1 on successful append operation
 static inline uint8_t append_log_msg_to_uart(char* msg) {
     if(msg == NULL) {
         return 0;
@@ -369,6 +388,8 @@ static inline uint8_t append_log_msg_to_uart(char* msg) {
     return 1;
 }
 
+/// @brief appends a byte to the output buffer string
+/// @param byte the byte to append
 static inline void append_byte_to_uart(uint16_t byte) {
     size_t used = strlen(output_msg.uart_tx);
     if(used >= sizeof(output_msg.uart_tx)) {
@@ -377,3 +398,13 @@ static inline void append_byte_to_uart(uint16_t byte) {
 
     snprintf(output_msg.uart_tx + used, sizeof(output_msg.uart_tx) - used, "%x", byte);
 }
+
+/// @brief sets the output uart buffer to zero
+/// @param void 
+static inline void clear_output_uart_buffer(void) {
+
+    // clear the uart tx buffer: 
+    memset(output_msg.uart_tx, 0, sizeof(output_msg.uart_tx));
+
+}
+

@@ -27,10 +27,10 @@ Should be able to check the actual math in the Vishay Optics Docs.
 #define VREF 3.3f
 
 #define RATE_LIMIT 700
-#define OUT_OF_RANGE_LIMIT 50
-#define SATURATION_LIMIT 3980
+#define OUT_OF_RANGE_LIMIT 50    // 40mV is the out of range limit voltage  (40mV / 3.3V) * 4095 LSB
+#define SATURATION_LIMIT 3980    // 3.2V is the saturation voltage          (3.2V / 3.3v) * 4095 LSB
 
-#define SMOOTHING_FACTOR_EMA 0.5
+#define SMOOTHING_FACTOR_EMA 0.5f
 
 /// @brief stores the previous value recorded by the EMA LPF 
 typedef struct ema_lpf_cache_t {

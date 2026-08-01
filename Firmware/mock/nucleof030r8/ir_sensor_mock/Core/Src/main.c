@@ -61,6 +61,7 @@ TIM_HandleTypeDef htim16;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_usart1_rx;
+DMA_HandleTypeDef hdma_usart2_tx;
 
 /* USER CODE BEGIN PV */
 
@@ -77,6 +78,9 @@ volatile uint8_t fsm_tick = 0;
 volatile uint8_t adc_tick = 0;
 volatile uint8_t logger_tick = 0;
 volatile uint8_t rs485_tick = 0;
+
+// used for DMA based logger transfer. To Do: Properly implement a DMA based logger. 
+//volatile uint8_t log_tx_cplt = 1;
 
 // allocated memory for buffer message operations
 char msg_buf_a[LOG_BUFFER_SIZE];
@@ -759,6 +763,9 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel2_3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel2_3_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel2_3_IRQn);
+  /* DMA1_Channel4_5_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel4_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel4_5_IRQn);
 
 }
 
@@ -811,7 +818,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
   memcpy(&adc_buffer_consume, &adc_buffer_dma, NUM_PHOTODIODES*sizeof(uint32_t));
 
   __enable_irq();
-  
+
 }
 
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
@@ -849,7 +856,12 @@ void HAL_UART_RxCpltCallback (UART_HandleTypeDef * huart) {
 }
 
 void HAL_UART_TxCpltCallback (UART_HandleTypeDef* huart) {
-  // no callbacks registered yet. 
+
+  // used for DMA based transfer
+  // if(huart->Instance == USART2) {
+  //   log_tx_cplt = 1;
+  // }
+
 }
 /* USER CODE END 4 */
 

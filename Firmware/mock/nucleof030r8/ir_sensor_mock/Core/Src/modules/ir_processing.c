@@ -1,7 +1,7 @@
 #include "ir_processing.h"
 
 /// @brief convers the given ADC value into a measurable distance value
-static float convert_to_distance(uint16_t adc);
+static inline float convert_to_distance(uint16_t adc);
 
 /// @brief
 static sensor_status_t pack_adc_msg_to_data_msg(adc_msg_t adc_msg[], data_msg_t* data_msg);
@@ -60,7 +60,7 @@ void stream_from_fifo_ema_lpf(fifo_t* fifo_pd1, fifo_t* fifo_pd2, data_msg_t* da
 
 static inline float convert_to_distance(uint16_t adc) {
 
-    return (float)GAIN * sqrtf((float)COEFF_A / (float)adc * (float)VREF) + (float)OFFSET;
+    return (float)GAIN * sqrtf((float)COEFF_A / (((float)adc / 4095.0f) * (float)VREF)) + (float)OFFSET;
 }
 
 // static uint8_t verify_rate_limit(fifo_t* fifo, uint8_t size) {
