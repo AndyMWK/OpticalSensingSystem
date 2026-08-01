@@ -1,11 +1,11 @@
 LTspice 24.0.12 for Windows
-Circuit: * C:\Users\ak915\OneDrive\Documents\LTspice\tia_sensor.asc
-Start Time: Mon Apr 13 07:28:27 2026
+Circuit: * C:\Users\Public\Documents\Altium\IR_Sensor_Project\Electrical\analog spice simulations\tia_sensor.asc
+Start Time: Fri Jul 17 19:51:16 2026
 solver = Normal
 Maximum thread count: 16
 tnom = 27
 temp = 27
 method = modified trap
 Direct Newton iteration for .op point succeeded.
-Total elapsed time: 1.847 seconds.
+Total elapsed time: 2.254 seconds.
 
