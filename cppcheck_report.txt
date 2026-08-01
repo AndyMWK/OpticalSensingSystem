@@ -1,19 +1,19 @@
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:108:23: style: Variable 'ctx.state' is reassigned a value before the old one has been used. [redundantAssignment]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:121:23: style: Variable 'ctx.state' is reassigned a value before the old one has been used. [redundantAssignment]
             ctx.state = STATE_STREAMING;
                       ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:102:27: note: ctx.state is assigned
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:115:27: note: ctx.state is assigned
                 ctx.state = STATE_STREAMING;
                           ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:108:23: note: ctx.state is overwritten
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:121:23: note: ctx.state is overwritten
             ctx.state = STATE_STREAMING;
                       ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:108:23: style: Variable 'ctx.state' is reassigned a value before the old one has been used. [redundantAssignment]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:121:23: style: Variable 'ctx.state' is reassigned a value before the old one has been used. [redundantAssignment]
             ctx.state = STATE_STREAMING;
                       ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:104:27: note: ctx.state is assigned
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:117:27: note: ctx.state is assigned
                 ctx.state = STATE_IDLE;
                           ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:108:23: note: ctx.state is overwritten
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:121:23: note: ctx.state is overwritten
             ctx.state = STATE_STREAMING;
                       ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/system_stm32f0xx.c:191:0: information: Skipping configuration 'HSE_VALUE' since the value of 'HSE_VALUE' is unknown. Use -D if you want to check it. You can use -U to skip it explicitly. [ConfigurationNotChecked]
@@ -5950,7 +5950,7 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/Source/StatisticsFun
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/Source/StatisticsFunctions/arm_var_q31.c:64:0: style: The function 'arm_var_q31' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/main.c:891:0: style: The function 'assert_failed' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/main.c:897:0: style: The function 'assert_failed' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/JTest/src/jtest_trigger_action.c:29:0: style: The function 'dump_data' is never used. [unusedFunction]
@@ -5975,9 +5975,6 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Co
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/JTest/src/jtest_trigger_action.c:14:0: style: The function 'group_start' is never used. [unusedFunction]
-
-^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:364:0: style: The function 'handle_internal_msg_failed' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/syscalls.c:44:0: style: The function 'initialise_monitor_handles' is never used. [unusedFunction]
@@ -6661,7 +6658,7 @@ Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Re
 Firmware/mock/nucleof030r8/ir_sensor_mock/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/RefLibs/src/StatisticsFunctions/var.c:25:0: style: The function 'ref_var_q31' is never used. [unusedFunction]
 
 ^
-Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:203:0: style: The function 'reset_fsm' is never used. [unusedFunction]
+Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/fsm.c:216:0: style: The function 'reset_fsm' is never used. [unusedFunction]
 
 ^
 Firmware/mock/nucleof030r8/ir_sensor_mock/Core/Src/modules/rs485.c:96:0: style: The function 'send_packet' is never used. [unusedFunction]
