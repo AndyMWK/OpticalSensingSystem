@@ -38,7 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define CPU_CLK 8000000UL
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -113,7 +113,7 @@ static void MX_TIM14_Init(void);
 static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 /* USER CODE BEGIN PFP */
-
+static void pwm_io_control(uint32_t duty);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -173,11 +173,10 @@ int main(void)
   HAL_TIM_OC_Start_IT(&htim15, TIM_CHANNEL_1);
   HAL_TIM_OC_Start_IT(&htim14, TIM_CHANNEL_1);
 
-  init_pwm_interface(&htim16);
   HAL_TIM_PWM_Init(&htim16);
   HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);
 
-  register_log_callback(&push_log);
+  register_fsm_callbacks(&push_log, &pwm_io_control);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -204,7 +203,7 @@ int main(void)
       if(handle_async_request()) {
         pop_log(&huart2);
       }
-      
+
       fsm_tick = 0;
     }
 
@@ -868,6 +867,15 @@ void HAL_UART_TxCpltCallback (UART_HandleTypeDef* huart) {
   //   log_tx_cplt = 1;
   // }
 
+}
+
+void pwm_io_control(uint32_t duty) {
+
+  if(duty >= 100) {
+    return;
+  }
+
+  htim16.Instance->CCR1 = (uint32_t)( (float)htim16.Instance->ARR * ((float)duty / 100.0f) );
 }
 /* USER CODE END 4 */
 

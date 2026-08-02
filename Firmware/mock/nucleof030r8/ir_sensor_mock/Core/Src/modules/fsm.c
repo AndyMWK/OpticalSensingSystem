@@ -32,13 +32,12 @@ static fsm_output_msg_t output_msg = {
 
 static ir_led_pwm_t ir_led_pwm = {
     .pwm_duty_cycle = 50, 
-    .frequency = 1000,
-    .htim = NULL
+    .target_duty = 50
 };
 
 static uint8_t async_signal = 0;
-
 static async_log_cb_t log_callback = NULL;
+static pwm_control_t pwm_callback = NULL;
 
 /// @brief main function loop that updates the FSM. 
 /// @param fifo_pd1 fifo handle for photodiode 1
@@ -125,26 +124,66 @@ void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms) {
             append_log_msg_to_uart("Sensor State is healthy\r\n");
         break;
 
-        case STATE_PWM_DUTY_CHANGE: 
-            // control the pwm outputs
-
-            ctx.state = STATE_PWM_DUTY_CHANGE;
-            append_log_msg_to_uart("PWM Duty: \r\n");
+        case STATE_PWM_DIM: 
 
             if(incoming_fifo_data.status == SENSOR_OK) {
                 ctx.state = STATE_STREAMING;
+
+                break;
             }
+
+            if(ir_led_pwm.pwm_duty_cycle == PWM_DIM_TARGET) {
+                append_log_msg_to_uart("PWM minimum duty cycle reached: ");
+                append_byte_to_uart((uint8_t)ir_led_pwm.pwm_duty_cycle);
+                append_log_msg_to_uart("\r\n");
+
+                break;
+            }
+
+            ctx.state = STATE_PWM_DIM;
+            append_log_msg_to_uart("PWM Duty: \r\n");
+            append_byte_to_uart(ir_led_pwm.pwm_duty_cycle);
+            append_log_msg_to_uart("\r\n");
+            ir_led_pwm.pwm_duty_cycle -= PWM_DELTA;
+            pwm_callback(ir_led_pwm.pwm_duty_cycle);
+            
+        break;
+
+        case STATE_PWM_BRIGHTEN: 
+
+            if(incoming_fifo_data.status == SENSOR_OK) {
+                ctx.state = STATE_STREAMING;
+
+                break;
+            }
+
+            if(ir_led_pwm.pwm_duty_cycle == PWM_BRIGHTEN_TARGET) {
+                append_log_msg_to_uart("PWM maximum duty cycle reached: ");
+                append_byte_to_uart((uint8_t)ir_led_pwm.pwm_duty_cycle);
+                append_log_msg_to_uart("\r\n");
+
+                break;
+            }
+
+            ctx.state = STATE_PWM_BRIGHTEN;
+            append_log_msg_to_uart("PWM Duty: ");
+            append_byte_to_uart(ir_led_pwm.pwm_duty_cycle);
+            append_log_msg_to_uart("\r\n");
+            ir_led_pwm.pwm_duty_cycle += PWM_DELTA;
+            pwm_callback(ir_led_pwm.pwm_duty_cycle);
             
         break;
 
         case STATE_TOO_FAR:  
             append_log_msg_to_uart("Sensor too far, Brightening.\r\n");
-            ctx.state = STATE_PWM_DUTY_CHANGE;
+            ctx.state = STATE_PWM_BRIGHTEN;
+            ir_led_pwm.target_duty = PWM_BRIGHTEN_TARGET;
         break;
 
         case STATE_SATURATION: 
             append_log_msg_to_uart("Sensor too close, Dimming.\r\n");
-            ctx.state = STATE_PWM_DUTY_CHANGE;
+            ctx.state = STATE_PWM_DIM;
+            ir_led_pwm.target_duty = PWM_DIM_TARGET;
         break;  
 
         case STATE_ERROR: 
@@ -219,14 +258,6 @@ void reset_fsm(void) {
     clear_output_uart_buffer();
 }
 
-/// @brief initializes the PWM interface with the HAL timer handle
-/// @param htim timer handle
-void init_pwm_interface(TIM_HandleTypeDef* htim) {
-
-    ir_led_pwm.htim = htim;
-
-}
-
 /// @brief creates a log message based on incoming sensor data. The log message is meant to be printed on the serial console. 
 /// @param incoming_fifo_data   packaged fifo data containing adc data, timestamps, and sensor statuses
 static void create_log_msg(data_msg_t* incoming_fifo_data) {
@@ -251,6 +282,9 @@ static void create_log_msg(data_msg_t* incoming_fifo_data) {
                 (unsigned long)incoming_fifo_data->timestamp_pd_2);
 }   
 
+/// @brief 
+/// @param  
+/// @return 1 on handling the async signal request and 0 on otherwise. 
 uint8_t handle_async_request(void) {
 
     if(log_callback == NULL) {
@@ -270,14 +304,17 @@ uint8_t handle_async_request(void) {
 
 }
 
-void register_log_callback(async_log_cb_t cb_func) {
+/// @brief registers a log callback function to be used by the async handler
+/// @param cb_func async function pointer to the logger
+/// @param pwm_func pwm io control function pointer
+void register_fsm_callbacks(async_log_cb_t cb_func, pwm_control_t pwm_func) {
 
-    if(cb_func == NULL) {
+    if(cb_func == NULL || pwm_func == NULL) {
         return;
     }
 
     log_callback = cb_func;
-
+    pwm_callback = pwm_func;
 }
 
 static void update_state_rs485_cmd(comms_msg_t* comms) {
@@ -321,7 +358,13 @@ static void update_state_rs485_cmd(comms_msg_t* comms) {
             append_log_msg_to_uart("LED Brightness Set to: ");
             append_byte_to_uart(comms->rs485_msg.data);
             append_log_msg_to_uart("\r\n");
-            ctx.state = STATE_PWM_DUTY_CHANGE;
+            
+            if(comms->rs485_msg.data > ir_led_pwm.pwm_duty_cycle) {
+                ctx.state = STATE_PWM_BRIGHTEN;
+            } else if(comms->rs485_msg.data < ir_led_pwm.pwm_duty_cycle) {
+                ctx.state = STATE_PWM_DIM;
+            }
+
             break;
         case SYNC_BYTE_NOT_RECEIVED: 
             append_log_msg_to_uart("RS485: SYNC Byte not received\r\n");
@@ -362,7 +405,7 @@ static void handle_sensor_error(void) {
 static void handle_sensor_saturated_error(void) {
     ctx.error_count++;
 
-    if (ctx.state == STATE_PWM_DUTY_CHANGE) {
+    if (ctx.state == STATE_PWM_DIM) {
         async_signal = 0;
         return;
     }
@@ -385,7 +428,7 @@ static void handle_fifo_failed_error(void) {
 static void handle_sensor_out_of_range_error() {
     ctx.error_count++;
 
-    if (ctx.state == STATE_PWM_DUTY_CHANGE) {
+    if (ctx.state == STATE_PWM_BRIGHTEN) {
         async_signal = 0;
         return;
     }
@@ -431,7 +474,7 @@ static inline void append_byte_to_uart(uint16_t byte) {
         return;
     }
 
-    snprintf(output_msg.uart_tx + used, sizeof(output_msg.uart_tx) - used, "%x", byte);
+    snprintf(output_msg.uart_tx + used, sizeof(output_msg.uart_tx) - used, "%d", byte);
 }
 
 /// @brief sets the output uart buffer to zero

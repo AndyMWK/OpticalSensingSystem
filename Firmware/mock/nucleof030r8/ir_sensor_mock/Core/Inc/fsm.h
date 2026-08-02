@@ -10,15 +10,20 @@
 #include <string.h>
 #include <math.h>
 
-#define MAX_ERROR_COUNT 10
-#define MAX_ASYNC_CALLBACKS_REGISTERED 3
+#define MAX_ERROR_COUNT                 10 
+
+#define PWM_DELTA                       1   // in %
+#define FREQUENCY_DELTA                 10  // Hz
+#define PWM_DIM_TARGET                  35  // in %
+#define PWM_BRIGHTEN_TARGET             65  // in %
 
 /// @brief All FSM States
 typedef enum fsm_state_t {
     STATE_IDLE = 0, 
     STATE_STREAMING, 
     STATE_STREAMING_DISABLED,
-    STATE_PWM_DUTY_CHANGE,
+    STATE_PWM_DIM,
+    STATE_PWM_BRIGHTEN,
     STATE_SATURATION,
     STATE_TOO_FAR,
     STATE_FIFO_EMPTY,
@@ -43,13 +48,13 @@ typedef struct comms_msg_t {
 /// @brief interface that the FSM will use for controlling the PWM duty and frequency
 typedef struct ir_led_pwm_t {
 
-    uint32_t pwm_duty_cycle;    // resolution of 1%
-    uint32_t frequency;         // in Hz
-    TIM_HandleTypeDef* htim;    // timer handle
+    int pwm_duty_cycle;    // resolution of 1%
+    int target_duty;
 
 } ir_led_pwm_t;
 
 typedef void (*async_log_cb_t)(char* msg_buf, uint16_t msg_len);
+typedef void (*pwm_control_t)(uint32_t duty);
 
 // Public API functions for the FSM module.
 
@@ -59,9 +64,6 @@ void update_fsm(fifo_t* fifo_pd1, fifo_t* fifo_pd2, comms_msg_t* comms);
 /// @brief used to collect outputs from the FSM. Various message types are available. 
 void output_from_fsm(fsm_output_types_t out_type, char* message, uint16_t* filled_len, uint16_t message_max_size);
 
-/// @brief initializes the PWM interface with the HAL timer handle
-void init_pwm_interface(TIM_HandleTypeDef* htim);
-
 /// @brief resets the state of the FSM. To Do: also wipe the cached logs and input messages as well. 
 void reset_fsm(void);
 
@@ -69,6 +71,9 @@ void reset_fsm(void);
 /// @param void
 uint8_t handle_async_request(void);
 
-void register_log_callback(async_log_cb_t cb_func);
+/// @brief 
+/// @param cb_func 
+/// @param pwm_func 
+void register_fsm_callbacks(async_log_cb_t cb_func, pwm_control_t pwm_func);
 
 #endif
