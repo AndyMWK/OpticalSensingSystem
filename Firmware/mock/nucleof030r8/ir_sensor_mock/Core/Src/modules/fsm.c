@@ -1,8 +1,5 @@
 #include "fsm.h"
 
-// To do: allow for async actions/calls from the FSM. 
-// Architect PWM output from the FSM. 
-
 // Private Helper Functions
 static void update_state_rs485_cmd(comms_msg_t* comms);
 static void handle_sensor_error(void);
@@ -256,6 +253,10 @@ void reset_fsm(void) {
     ctx.state = STATE_IDLE;
     ctx.error_count = 0;
     clear_output_uart_buffer();
+
+    async_signal = 0;
+    ir_led_pwm.pwm_duty_cycle = 50;
+    ir_led_pwm.target_duty = 50;
 }
 
 /// @brief creates a log message based on incoming sensor data. The log message is meant to be printed on the serial console. 
