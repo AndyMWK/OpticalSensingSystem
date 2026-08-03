@@ -1,4 +1,4 @@
-.vscode/*
+.vscode/
 
 # STM32 build output
 **/Debug/
