@@ -17,6 +17,7 @@ jobs:
         with:
           style: 'file'      # Use .clang-format config file
           tidy-checks: ''  # Use .clang-tidy config file
+          ignore: '.github|**/test'
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
         run: exit 1
@@ -33,12 +34,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           exclude_check: 'Firmware/device'
           output_file: cppcheck_report.txt
-          
-        
-      - name: publish report    
-        uses: mikeal/publish-to-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Upload cppcheck report
         if: always()
