@@ -44,7 +44,12 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user sources here
+    Core/Src/modules/fifo.c
+    Core/Src/modules/fsm.c
+    Core/Src/modules/ir_adc.c
+    Core/Src/modules/ir_processing.c
+    Core/Src/modules/logger.c
+    Core/Src/modules/rs485.c
 )
 
 # Add include paths

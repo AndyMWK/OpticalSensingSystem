@@ -50,7 +50,7 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
-DocumentPath=root.SchDoc
+DocumentPath=IR LED.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -64,10 +64,10 @@ ClassGenCCAutoRoomEnabled=0
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=ZQGORDZP
+DocumentUniqueId=ZRPRKSAU
 
 [Document2]
-DocumentPath=PCB.PcbDoc
+DocumentPath=IR LED.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -81,95 +81,10 @@ ClassGenCCAutoRoomEnabled=0
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=VYHABTQR
+DocumentUniqueId=YAYXWXSS
 
 [Document3]
-DocumentPath=Sensor_Controller.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=YXEFUUKG
-
-[Document4]
-DocumentPath=IR_LED.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=FFUEQWGZ
-
-[Document5]
-DocumentPath=IR_Sensor.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=PYAZLZHU
-
-[Document6]
-DocumentPath=comms_interface.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=XGHNTHXL
-
-[Document7]
-DocumentPath=Power.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=SFQZDPZA
-
-[Document8]
-DocumentPath=Sensor_Controller.Harness
+DocumentPath=..\..\..\..\..\..\ak915\Downloads\BCR402UW6Q_7\AltiumDesigner\Job2.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -184,459 +99,9 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
-
-[Document9]
-DocumentPath=IR_Sensor.Harness
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document10]
-DocumentPath=comms_interface.Harness
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document11]
-DocumentPath=..\..\..\..\ak915\Downloads\SP3485EN_L_TR\AltiumDesigner\USB.Harness
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document12]
-DocumentPath=USB.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=MASAETFQ
-
-[Document13]
-DocumentPath=Job1.OutJob
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[ProjectVariant1]
-UniqueId=0c774107-5fa9-4e43-9b94-490be3e82632
-Description=Variant 1A
-AllowFabrication=0
-ParameterCount=0
-VariationCount=5
-Variation1=Designator=J3|UniqueId=\MOCPJIIN\IQWHDSXV|Kind=1|AlternatePart=
-Variation2=Designator=J2|UniqueId=\MFQGGERQ\RZHCMCPZ|Kind=1|AlternatePart=
-Variation3=Designator=J5|UniqueId=\XPIZVGIN\LFKWXOPV|Kind=1|AlternatePart=
-Variation4=Designator=U1|UniqueId=\XPIZVGIN\LJEHWWQA|Kind=1|AlternatePart=
-Variation5=Designator=J6|UniqueId=\BTZNDGLQ\EVUYMRHU|Kind=1|AlternatePart=
-ParamVariationCount=0
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for IR_Sensor_Array\BOM\Bill of Materials-IR_Sensor_Array(Variant 1A).xlsx
-DItemRevisionGUID=
-
-[GeneratedDocument2]
-DocumentPath=Project Outputs for IR_Sensor_Array\BOM\Bill of Materials-IR_Sensor_Array.xlsx
-DItemRevisionGUID=
-
-[GeneratedDocument3]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_bot\components
-DItemRevisionGUID=
-
-[GeneratedDocument4]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_top\components
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_bot\components
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_top\components
-DItemRevisionGUID=
-
-[GeneratedDocument7]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\eda\data
-DItemRevisionGUID=
-
-[GeneratedDocument8]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\eda\data
-DItemRevisionGUID=
-
-[GeneratedDocument9]
-DocumentPath=Project Outputs for IR_Sensor_Array\Design Rule Check - PCB.html
-DItemRevisionGUID=
-
-[GeneratedDocument10]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument11]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_overlay\features
-DItemRevisionGUID=
-
-[GeneratedDocument12]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_paste\features
-DItemRevisionGUID=
-
-[GeneratedDocument13]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\bottom_solder\features
-DItemRevisionGUID=
-
-[GeneratedDocument14]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_bot\features
-DItemRevisionGUID=
-
-[GeneratedDocument15]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\comp_+_top\features
-DItemRevisionGUID=
-
-[GeneratedDocument16]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_1\features
-DItemRevisionGUID=
-
-[GeneratedDocument17]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_2\features
-DItemRevisionGUID=
-
-[GeneratedDocument18]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\dielectric_3\features
-DItemRevisionGUID=
-
-[GeneratedDocument19]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument20]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument21]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\gnd1\features
-DItemRevisionGUID=
-
-[GeneratedDocument22]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\gnd2\features
-DItemRevisionGUID=
-
-[GeneratedDocument23]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument24]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_overlay\features
-DItemRevisionGUID=
-
-[GeneratedDocument25]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_paste\features
-DItemRevisionGUID=
-
-[GeneratedDocument26]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\top_solder\features
-DItemRevisionGUID=
-
-[GeneratedDocument27]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument28]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_overlay\features
-DItemRevisionGUID=
-
-[GeneratedDocument29]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_paste\features
-DItemRevisionGUID=
-
-[GeneratedDocument30]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\bottom_solder\features
-DItemRevisionGUID=
-
-[GeneratedDocument31]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_bot\features
-DItemRevisionGUID=
-
-[GeneratedDocument32]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\comp_+_top\features
-DItemRevisionGUID=
-
-[GeneratedDocument33]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_1\features
-DItemRevisionGUID=
-
-[GeneratedDocument34]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_2\features
-DItemRevisionGUID=
-
-[GeneratedDocument35]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\dielectric_3\features
-DItemRevisionGUID=
-
-[GeneratedDocument36]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument37]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument38]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\gnd1\features
-DItemRevisionGUID=
-
-[GeneratedDocument39]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\gnd2\features
-DItemRevisionGUID=
-
-[GeneratedDocument40]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_layer\features
-DItemRevisionGUID=
-
-[GeneratedDocument41]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_overlay\features
-DItemRevisionGUID=
-
-[GeneratedDocument42]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_paste\features
-DItemRevisionGUID=
-
-[GeneratedDocument43]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\top_solder\features
-DItemRevisionGUID=
-
-[GeneratedDocument44]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\matrix\matrix
-DItemRevisionGUID=
-
-[GeneratedDocument45]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\matrix\matrix
-DItemRevisionGUID=
-
-[GeneratedDocument46]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\netlists\cadnet\netlist
-DItemRevisionGUID=
-
-[GeneratedDocument47]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\netlists\cadnet\netlist
-DItemRevisionGUID=
-
-[GeneratedDocument48]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles-NonPlated.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument49]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles-Plated.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument50]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-RoundHoles.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument51]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-RoundHoles.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument52]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-SlotHoles-Plated.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument53]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-SlotHoles.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument54]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB-SlotHoles.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument55]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument56]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument57]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument58]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument59]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.G1
-DItemRevisionGUID=
-
-[GeneratedDocument60]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.G2
-DItemRevisionGUID=
-
-[GeneratedDocument61]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument62]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBO
-DItemRevisionGUID=
-
-[GeneratedDocument63]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBP
-DItemRevisionGUID=
-
-[GeneratedDocument64]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument65]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GKO
-DItemRevisionGUID=
-
-[GeneratedDocument66]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GM
-DItemRevisionGUID=
-
-[GeneratedDocument67]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument68]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument69]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTP
-DItemRevisionGUID=
-
-[GeneratedDocument70]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument71]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument72]
-DocumentPath=Project Outputs for IR_Sensor_Array\NC Drill\PCB.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument73]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB.REP
-DItemRevisionGUID=
-
-[GeneratedDocument74]
-DocumentPath=Project Outputs for Free Documents\ODB\PCB.REP
-DItemRevisionGUID=
-
-[GeneratedDocument75]
-DocumentPath=Project Outputs for IR_Sensor_Array\Gerber\PCB.REP
-DItemRevisionGUID=
-
-[GeneratedDocument76]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\PCB.REP
-DItemRevisionGUID=
-
-[GeneratedDocument77]
-DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB(Variant 1A).csv
-DItemRevisionGUID=
-
-[GeneratedDocument78]
-DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB(Variant 1A).txt
-DItemRevisionGUID=
-
-[GeneratedDocument79]
-DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB.csv
-DItemRevisionGUID=
-
-[GeneratedDocument80]
-DocumentPath=Project Outputs for Free Documents\Pick Place\Pick Place for PCB.txt
-DItemRevisionGUID=
-
-[GeneratedDocument81]
-DocumentPath=Project Outputs for IR_Sensor_Array\Pick Place\Pick Place for PCB.txt
-DItemRevisionGUID=
-
-[GeneratedDocument82]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\profile
-DItemRevisionGUID=
-
-[GeneratedDocument83]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\profile
-DItemRevisionGUID=
-
-[GeneratedDocument84]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\stephdr
-DItemRevisionGUID=
-
-[GeneratedDocument85]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\stephdr
-DItemRevisionGUID=
-
-[GeneratedDocument86]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\tools
-DItemRevisionGUID=
-
-[GeneratedDocument87]
-DocumentPath=Project Outputs for Free Documents\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\tools
-DItemRevisionGUID=
-
-[GeneratedDocument88]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_non-plated_bottom_layer-top_layer\tools
-DItemRevisionGUID=
-
-[GeneratedDocument89]
-DocumentPath=Project Outputs for IR_Sensor_Array\ODB\odb\steps\pcb\layers\drill_plated_bottom_layer-top_layer\tools
+DocumentPath=Project Outputs for ir_led_board_design\Design Rule Check - IR LED.html
 DItemRevisionGUID=
 
 [Configuration1]
@@ -648,112 +113,6 @@ Variant=[No Variations]
 OutputJobsCount=0
 ContentTypeGUID=CB6F2064-E317-11DF-B822-12313F0024A2
 ConfigurationType=Source
-
-[Generic_SignalIntegrityPanelSetup]
-TerminationName0=No Termination
-TerminationEnabled0=True
-TerminationSweeps0=1
-TerminationName1=Serial Res
-TerminationEnabled1=False
-TerminationSweeps1=10
-TerminationName2=Parallel Res to VCC
-TerminationEnabled2=False
-TerminationSweeps2=10
-TerminationName3=Parallel Res to GND
-TerminationEnabled3=False
-TerminationSweeps3=10
-TerminationName4=Parallel Res to VCC & GND
-TerminationEnabled4=False
-TerminationSweeps4=10
-TerminationName5=Parallel Cap to GND
-TerminationEnabled5=False
-TerminationSweeps5=10
-TerminationName6=Res and Cap to GND
-TerminationEnabled6=False
-TerminationSweeps6=10
-TerminationName7=Parallel Schottky Diodes
-TerminationEnabled7=False
-TerminationSweeps7=10
-TerminationMinR10=0
-TerminationMaxR10=0
-TerminationPrefR10=0
-TerminationMinR20=0
-TerminationMaxR20=0
-TerminationPrefR20=0
-TerminationMinC0=0
-TerminationMaxC0=0
-TerminationPrefC0=0
-TerminationVCC0=0
-TerminationMinR11=25
-TerminationMaxR11=150
-TerminationPrefR11=47
-TerminationMinR21=0
-TerminationMaxR21=0
-TerminationPrefR21=0
-TerminationMinC1=0
-TerminationMaxC1=0
-TerminationPrefC1=0
-TerminationVCC1=0
-TerminationMinR12=50
-TerminationMaxR12=200
-TerminationPrefR12=100
-TerminationMinR22=0
-TerminationMaxR22=0
-TerminationPrefR22=0
-TerminationMinC2=0
-TerminationMaxC2=0
-TerminationPrefC2=0
-TerminationVCC2=5
-TerminationMinR13=0
-TerminationMaxR13=0
-TerminationPrefR13=0
-TerminationMinR23=50
-TerminationMaxR23=200
-TerminationPrefR23=100
-TerminationMinC3=0
-TerminationMaxC3=0
-TerminationPrefC3=0
-TerminationVCC3=0
-TerminationMinR14=50
-TerminationMaxR14=200
-TerminationPrefR14=100
-TerminationMinR24=50
-TerminationMaxR24=200
-TerminationPrefR24=100
-TerminationMinC4=0
-TerminationMaxC4=0
-TerminationPrefC4=0
-TerminationVCC4=5
-TerminationMinR15=0
-TerminationMaxR15=0
-TerminationPrefR15=0
-TerminationMinR25=0
-TerminationMaxR25=0
-TerminationPrefR25=0
-TerminationMinC5=2.35E-11
-TerminationMaxC5=9.4E-11
-TerminationPrefC5=4.7E-11
-TerminationVCC5=0
-TerminationMinR16=0
-TerminationMaxR16=0
-TerminationPrefR16=0
-TerminationMinR26=34
-TerminationMaxR26=136
-TerminationPrefR26=68
-TerminationMinC6=5E-11
-TerminationMaxC6=2E-10
-TerminationPrefC6=1E-10
-TerminationVCC6=0
-TerminationMinR17=0
-TerminationMaxR17=0
-TerminationPrefR17=0
-TerminationMinR27=0
-TerminationMaxR27=0
-TerminationPrefR27=0
-TerminationMinC7=0
-TerminationMaxC7=0
-TerminationPrefC7=0
-TerminationVCC7=5
 
 [OutputGroup1]
 Name=Netlist Outputs
@@ -1176,66 +535,96 @@ Name=Export Outputs
 Description=
 TargetPrinter=OneNote (Desktop)
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
-OutputType1=AutoCAD dwg/dxf PCB
-OutputName1=AutoCAD dwg/dxf File PCB
+OutputType1=Ansoft Neutral
+OutputName1=Ansoft Neutral (AutoPCB)
 OutputDocumentPath1=
 OutputVariantName1=
 OutputDefault1=0
-OutputType2=AutoCAD dwg/dxf Schematic
-OutputName2=AutoCAD dwg/dxf File Schematic
+OutputType2=AutoCAD dwg/dxf PCB
+OutputName2=AutoCAD dwg/dxf File PCB
 OutputDocumentPath2=
 OutputVariantName2=
 OutputDefault2=0
-OutputType3=ExportIDF
-OutputName3=Export IDF
+OutputType3=AutoCAD dwg/dxf Schematic
+OutputName3=AutoCAD dwg/dxf File Schematic
 OutputDocumentPath3=
 OutputVariantName3=
 OutputDefault3=0
-OutputType4=ExportPARASOLID
-OutputName4=Export PARASOLID
+OutputType4=ExportIDF
+OutputName4=Export IDF
 OutputDocumentPath4=
-OutputVariantName4=[No Variations]
+OutputVariantName4=
 OutputDefault4=0
-OutputType5=ExportSTEP
-OutputName5=Export STEP
+OutputType5=ExportPARASOLID
+OutputName5=Export PARASOLID
 OutputDocumentPath5=
 OutputVariantName5=[No Variations]
 OutputDefault5=0
-OutputType6=ExportVRML
-OutputName6=Export VRML
+OutputType6=ExportSTEP
+OutputName6=Export STEP
 OutputDocumentPath6=
 OutputVariantName6=[No Variations]
 OutputDefault6=0
-OutputType7=MBAExportPARASOLID
-OutputName7=Export PARASOLID
+OutputType7=ExportVRML
+OutputName7=Export VRML
 OutputDocumentPath7=
-OutputVariantName7=
+OutputVariantName7=[No Variations]
 OutputDefault7=0
-OutputType8=MBAExportSTEP
-OutputName8=Export STEP
+OutputType8=HyperLynx
+OutputName8=HyperLynx (AutoPCB)
 OutputDocumentPath8=
 OutputVariantName8=
 OutputDefault8=0
-OutputType9=Save As/Export PCB
-OutputName9=Save As/Export PCB
+OutputType9=MathWorks
+OutputName9=MathWorks (AutoPCB)
 OutputDocumentPath9=
 OutputVariantName9=
 OutputDefault9=0
-OutputType10=Save As/Export Schematic
-OutputName10=Save As/Export Schematic
+OutputType10=MBAExportPARASOLID
+OutputName10=Export PARASOLID
 OutputDocumentPath10=
 OutputVariantName10=
 OutputDefault10=0
-OutputType11=Specctra Design PCB
-OutputName11=Specctra Design PCB
+OutputType11=MBAExportSTEP
+OutputName11=Export STEP
 OutputDocumentPath11=
 OutputVariantName11=
 OutputDefault11=0
-OutputType12=Web ReviewOutputName
-OutputName12=Web Review Data
+OutputType12=Orcad v7 Capture Design
+OutputName12=Orcad v7 Capture Design (AutoSCH)
 OutputDocumentPath12=
 OutputVariantName12=
 OutputDefault12=0
+OutputType13=P-CAD ASCII
+OutputName13=P-CAD ASCII (AutoPCB)
+OutputDocumentPath13=
+OutputVariantName13=
+OutputDefault13=0
+OutputType14=P-CAD V16 Schematic Design
+OutputName14=P-CAD V16 Schematic Design (AutoSCH)
+OutputDocumentPath14=
+OutputVariantName14=
+OutputDefault14=0
+OutputType15=Save As/Export PCB
+OutputName15=Save As/Export PCB
+OutputDocumentPath15=
+OutputVariantName15=
+OutputDefault15=0
+OutputType16=Save As/Export Schematic
+OutputName16=Save As/Export Schematic
+OutputDocumentPath16=
+OutputVariantName16=
+OutputDefault16=0
+OutputType17=Specctra Design PCB
+OutputName17=Specctra Design PCB
+OutputDocumentPath17=
+OutputVariantName17=
+OutputDefault17=0
+OutputType18=Web ReviewOutputName
+OutputName18=Web Review Data
+OutputDocumentPath18=
+OutputVariantName18=
+OutputDefault18=0
 
 [OutputGroup10]
 Name=PostProcess Outputs
@@ -1665,21 +1054,21 @@ Type163=1
 
 [ERC Connection Matrix]
 L1=NNNNNNNNNNNWNNNWW
-L2=NNNNNNNNNNNNNNNNN
-L3=NNNNNNNNNNNNNNNNN
-L4=NNNNNNNNNNNNNNNNN
+L2=NNWNNNNWWWNWNWNWN
+L3=NWEENEEEENEWNEEWN
+L4=NNENNNWEENNWNENWN
 L5=NNNNNNNNNNNNNNNNN
-L6=NNNNNNNNNNNNNNNNN
-L7=NNNNNNNNNNNNNNNNN
-L8=NNNNNNNNNNNNNNNNN
-L9=NNNNNNNNNNNWNNNWW
-L10=NNNNNNNNNNNWNNNWN
-L11=NNNNNNNNNNNWNNNWN
-L12=WNNNNNNNWWWNWWWNN
+L6=NNENNNNEENNWNENWN
+L7=NNEWNNWEENNWNENWN
+L8=NWEENEENEEENNEENN
+L9=NWEENEEEENEWNEEWW
+L10=NWNNNNNENNEWNNEWN
+L11=NNENNNNEEENWNENWN
+L12=WWWWNWWNWWWNWWWNN
 L13=NNNNNNNNNNNWNNNWW
-L14=NNNNNNNNNNNWNNNWW
-L15=NNNNNNNNNNNWNNNWW
-L16=WNNNNNNNWWWNWWWNW
+L14=NWEENEEEENEWNEEWW
+L15=NNENNNNEEENWNENWW
+L16=WWWWNWWNWWWNWWWNW
 L17=WNNNNNNNWNNNWWWWN
 
 [Annotate]

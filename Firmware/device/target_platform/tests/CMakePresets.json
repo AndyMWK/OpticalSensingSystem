@@ -1,0 +1,30 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "host",
+            "displayName": "Host unit tests",
+            "description": "Builds the firmware modules with the PC's native compiler. Deliberately has NO toolchainFile, unlike the firmware presets in ../CMakePresets.json.",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/../build/host-tests",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "host",
+            "configurePreset": "host"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "host",
+            "configurePreset": "host",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ]
+}
