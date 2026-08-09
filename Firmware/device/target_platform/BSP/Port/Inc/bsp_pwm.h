@@ -25,17 +25,19 @@ typedef struct bsp_pwm_ch_t
 } bsp_pwm_ch_t;
 
 // Macros
-#define CHECK_VALID_CHANNEL(pwm_channel) (pwm_channel >= BSP_PWM_COUNT ? 0 : 1)
+#define CHECK_VALID_CHANNEL(pwm_channel) (((pwm_channel) < BSP_PWM_COUNT) ? 1 : 0)
 
 // Defines
-#define DUTY_CYCLE_CAP 95.0f
-#define CCR_CHANNEL_ADDR_INCR 4
+#define BSP_DUTY_CYCLE_CAP 95.0f
 
-hal_signal_t bsp_pwm_start(bsp_pwm_t ch);
-hal_signal_t bsp_pwm_stop(bsp_pwm_t ch);
-hal_signal_t bsp_pwm_set_freq_hz(bsp_pwm_t ch, uint16_t hz);
-hal_signal_t bsp_pwm_set_duty_percent(bsp_pwm_t ch, float percent);
-float bsp_pwm_get_duty_percent(bsp_pwm_t ch, hal_signal_t* status);
-uint16_t bsp_pwm_get_freq_hz(bsp_pwm_t ch, hal_signal_t* status);
+hal_signal_t bsp_pwm_start(const bsp_pwm_t ch);
+hal_signal_t bsp_pwm_stop(const bsp_pwm_t ch);
+
+// These functions directly write to the CCR and ARR registers when called.
+hal_signal_t bsp_pwm_set_freq_hz(const bsp_pwm_t ch, const uint32_t hz);
+hal_signal_t bsp_pwm_set_duty_percent(const bsp_pwm_t ch, float percent);
+
+float bsp_pwm_get_duty_percent(const bsp_pwm_t ch, hal_signal_t* status);
+uint32_t bsp_pwm_get_freq_hz(const bsp_pwm_t ch, hal_signal_t* status);
 
 #endif

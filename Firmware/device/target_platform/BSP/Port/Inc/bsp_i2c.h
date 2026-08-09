@@ -21,7 +21,7 @@ typedef struct bsp_i2c_ch_t
     // DMA callbacks
     i2c_tx_dma_cb tx_dma_cb;
     i2c_rx_dma_cb rx_dma_cb;
-};
+} bsp_i2c_ch_t;
 
 hal_signal_t bsp_i2c_transmit_blocking(const bsp_i2c_ch ch, const uint16_t* tx_data,
                                        const size_t size);

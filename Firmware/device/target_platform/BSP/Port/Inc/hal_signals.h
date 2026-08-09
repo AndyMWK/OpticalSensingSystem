@@ -15,7 +15,8 @@ typedef enum hal_signal_t
     HW_SPI_NOT_RECEIVE,
     HW_NO_CALLBACK,
     HW_BAD_CALLBACK,
-    HW_SPI_TX_FIFO_FULL
+    HW_SPI_TX_FIFO_FULL,
+    HW_CCR_INVALID
 } hal_signal_t;
 
 #endif

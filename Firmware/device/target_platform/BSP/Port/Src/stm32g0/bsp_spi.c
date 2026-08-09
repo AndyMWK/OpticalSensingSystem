@@ -109,7 +109,7 @@ hal_signal_t bsp_spi_receive_dma(const bsp_spi_ch ch, uint8_t* rx_data, const si
 
     // Check to see if the FIFO TX Buffer is full
     SPI_HandleTypeDef* hspi = spi_ch[ch].spi_handle;
-    if (hspi->Instance->SR & ((1 << SPI_SR_FTLVL_0) | (1 << SPI_SR_FTLVL_1)))
+    if (hspi->Instance->SR & (SPI_SR_FTLVL_0 | SPI_SR_FTLVL_1))
     {
         return HW_SPI_TX_FIFO_FULL;
     }
@@ -174,7 +174,7 @@ static inline uint8_t bsp_spi_tx_fifo_level_check(bsp_spi_ch ch)
     // Check to see if the FIFO TX Buffer is full
     SPI_HandleTypeDef* hspi = spi_ch[ch].spi_handle;
 
-    return (hspi->Instance->SR & ((1 << SPI_SR_FTLVL_0) | (1 << SPI_SR_FTLVL_1)));
+    return (hspi->Instance->SR & (SPI_SR_FTLVL_0 | SPI_SR_FTLVL_1));
 }
 
 static inline uint8_t bsp_spi_rx_fifo_level_check(bsp_spi_ch ch)
@@ -182,5 +182,5 @@ static inline uint8_t bsp_spi_rx_fifo_level_check(bsp_spi_ch ch)
     // Check to see if the FIFO RX Buffer is full
     SPI_HandleTypeDef* hspi = spi_ch[ch].spi_handle;
 
-    return ~(hspi->Instance->SR & ((1 << SPI_SR_FRLVL_0) | (1 << SPI_SR_FRLVL_1)));
+    return ~(hspi->Instance->SR & (SPI_SR_FRLVL_0 | SPI_SR_FRLVL_1));
 }
