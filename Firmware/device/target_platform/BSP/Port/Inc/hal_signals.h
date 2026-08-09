@@ -10,7 +10,12 @@ typedef enum hal_signal_t
     HW_BUSY,
     HW_NOT_INIT,
     HW_DEINIT_FAIL,
-    HW_CHANNEL_INVALID
+    HW_CHANNEL_INVALID,
+    HW_SPI_NOT_TRANSMIT,
+    HW_SPI_NOT_RECEIVE,
+    HW_NO_CALLBACK,
+    HW_BAD_CALLBACK,
+    HW_SPI_TX_FIFO_FULL
 } hal_signal_t;
 
 #endif

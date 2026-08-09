@@ -2,6 +2,9 @@
 #define BMI323_H
 
 #include "signals.h"
+#include "bsp_spi.h"
+#include "bsp_i2c.h"
+#include "bsp_timer.h"
 
 status_signal_t bmi323_imu_init(void);
 

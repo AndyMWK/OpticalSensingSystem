@@ -39,7 +39,7 @@ add_subdirectory(cmake/stm32cubemx)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined library search paths
+  
 )
 
 # Add sources to executable
@@ -50,11 +50,22 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Core/Src/modules/ir_processing.c
     Core/Src/modules/logger.c
     Core/Src/modules/rs485.c
+
+    # BSP Devices
+    BSP/Dev/Src/bmi323.c
+    BSP/Dev/Src/bq76925.c
+    BSP/Dev/Src/led_pwm_control.c 
+    BSP/Dev/Src/photodiodes.c
+
+    # BSP wrapper for STM32G0 HAL
+    BSP/Port/Src/stm32g0/bsp_pwm.c
+    BSP/Port/Src/stm32g0/bsp_spi.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
+    BSP/Dev/Inc/
+    BSP/Port/Inc/
 )
 
 # Add project symbols (macros)

@@ -36,5 +36,6 @@ hal_signal_t bsp_pwm_stop(bsp_pwm_t ch);
 hal_signal_t bsp_pwm_set_freq_hz(bsp_pwm_t ch, uint16_t hz);
 hal_signal_t bsp_pwm_set_duty_percent(bsp_pwm_t ch, float percent);
 float bsp_pwm_get_duty_percent(bsp_pwm_t ch, hal_signal_t* status);
+uint16_t bsp_pwm_get_freq_hz(bsp_pwm_t ch, hal_signal_t* status);
 
 #endif

@@ -150,7 +150,7 @@ float bsp_pwm_get_duty_percent(bsp_pwm_t ch, hal_signal_t* status)
     // retrieve period and ccr register values
     const uint32_t period = htim->Instance->ARR + 1u;
 
-    uint8_t* ccr_call_status = 1;
+    uint8_t ccr_call_status = 1;
     volatile uint32_t* ccr = ret_ccr(ch, &ccr_call_status);
 
     // check ccr register call
@@ -166,7 +166,7 @@ float bsp_pwm_get_duty_percent(bsp_pwm_t ch, hal_signal_t* status)
         *status = HW_OK;
 
     // return final value
-    return (float) ((float) (*ccr) / (float) htim->Instance->ARR) * 100.0f;
+    return (float) ((float) (*ccr) / (float) period) * 100.0f;
 }
 
 /// @brief returns the CCR_x registers for the selected pwm channel
