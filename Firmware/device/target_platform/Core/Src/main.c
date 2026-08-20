@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "bsp_spi.h"
+#include "led_pwm_control.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,6 +86,7 @@ static void MX_TIM16_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+ir_led_pwm_t ir_led; 
 
 /* USER CODE END 0 */
 
@@ -128,6 +130,7 @@ int main(void)
     MX_TIM14_Init();
     MX_TIM16_Init();
     /* USER CODE BEGIN 2 */
+    ir_led_pwm_init(&ir_led, BSP_PWM_IR_LED);
 
     /* USER CODE END 2 */
 
@@ -768,6 +771,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+// pipe the spi handle to the pipe/arbiter that will call the associated callback function
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef* hspi) {
+    bsp_spi_tx_dma_cb_pipe(hspi);
+}
 
 /* USER CODE END 4 */
 

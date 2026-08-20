@@ -6,34 +6,32 @@
 
 // external links to STM32 HAL API
 extern TIM_HandleTypeDef htim16;
+extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim14;
 
-static volatile uint32_t* ret_ccr(const bsp_pwm_t ch);
-
+static inline volatile uint32_t* ret_ccr(const bsp_pwm_t ch);
 
 static bsp_pwm_ch_t pwm_channels[BSP_PWM_COUNT] = {
 
     // BSP IR LED channel
-    {.duty = 50,
-     .frequency = 1000,
+    {
+        .timer_handle = (void*) &htim16, .timer_channel = TIM_CHANNEL_1, .gpio_handle = NULL
 
-     .timer_handle = (void*) &htim16,
+        /* In STM32 HAL API, TIM_CHANNEL_x already has address increments.
 
-     /* In STM32 HAL API, TIM_CHANNEL_x already has address increments.
+        Example:
 
-     Example:
+        TIM_CHANNEL_1 evaluates to 0x00.
 
-     TIM_CHANNEL_1 evaluates to 0x00.
+        &CCR1 + TIM_CHANNEL_1 = &CCR1 (0x34)
 
-     &CCR1 + TIM_CHANNEL_1 = &CCR1 (0x34)
+        TIM_CHANNEL_2 evaluates to 0x04
 
-     TIM_CHANNEL_2 evaluates to 0x04
+        &CCR1 + TIM_CHANNEL_2 = &CCR2 (0x38)
 
-     &CCR1 + TIM_CHANNEL_2 = &CCR2 (0x38)
-
-     */
-
-     .timer_channel = TIM_CHANNEL_1,
-     .gpio_handle = NULL}
+        */
+    }
 
 };
 
@@ -42,7 +40,7 @@ static bsp_pwm_ch_t pwm_channels[BSP_PWM_COUNT] = {
 /// @return returns HW_OK on success and HW_NOT_INIT if not initialzied
 hal_signal_t bsp_pwm_start(const bsp_pwm_t ch)
 {
-    if (!CHECK_VALID_CHANNEL(ch))
+    if (!CHECK_VALID_CHANNEL_PWM(ch))
     {
         return HW_CHANNEL_INVALID;
     }
@@ -56,12 +54,12 @@ hal_signal_t bsp_pwm_start(const bsp_pwm_t ch)
     return HW_OK;
 }
 
-/// @brief
+/// @brief stops the PWM channel from outputing anything
 /// @param ch
-/// @return
+/// @return returns HW_OK on success, HW_DEINIT_FAIL if deinitialization fails
 hal_signal_t bsp_pwm_stop(const bsp_pwm_t ch)
 {
-    if (!CHECK_VALID_CHANNEL(ch))
+    if (!CHECK_VALID_CHANNEL_PWM(ch))
     {
         return HW_CHANNEL_INVALID;
     }
@@ -75,27 +73,15 @@ hal_signal_t bsp_pwm_stop(const bsp_pwm_t ch)
     return HW_OK;
 }
 
-/// @brief
-/// @param ch
-/// @param hz
-/// @return
-hal_signal_t bsp_pwm_set_freq_hz(const bsp_pwm_t ch, const uint32_t hz)
-{
-    if (!CHECK_VALID_CHANNEL(ch))
-    {
-        return HW_CHANNEL_INVALID;
-    }
-
-    TIM_HandleTypeDef* htim = (TIM_HandleTypeDef*) pwm_channels[ch].timer_handle;
-}
-
-/// @brief
-/// @param ch
-/// @param percent
-/// @return
+/// @brief sets the duty cycle based on percentage
+/// @param ch PWM channel of interest
+/// @param percent duty cycle percentage.
+/// @return returns HW_OK on successful duty cycle change, but HW_CCR_INVALID if the CCR value is
+/// either < 0 or NaN.
+///         returns HW_NOT_INIT if unable to read the CCR register.
 hal_signal_t bsp_pwm_set_duty_percent(const bsp_pwm_t ch, const float percent)
 {
-    if (!CHECK_VALID_CHANNEL(ch))
+    if (!(ch))
     {
         return HW_CHANNEL_INVALID;
     }
@@ -115,8 +101,6 @@ hal_signal_t bsp_pwm_set_duty_percent(const bsp_pwm_t ch, const float percent)
     if (pct > BSP_DUTY_CYCLE_CAP)
         pct = BSP_DUTY_CYCLE_CAP;
 
-    // retrieve ccr register for the selected channel. ret_ccr validates the timer handle,
-    // so this has to happen before htim is dereferenced below.
     volatile uint32_t* ccr = ret_ccr(ch);
     if (ccr == NULL)
     {
@@ -134,11 +118,42 @@ hal_signal_t bsp_pwm_set_duty_percent(const bsp_pwm_t ch, const float percent)
 
 /// @brief
 /// @param ch
+/// @param hz
+/// @return
+hal_signal_t bsp_pwm_set_freq_hz(const bsp_pwm_t ch, const uint32_t hz)
+{
+    if (!CHECK_VALID_CHANNEL_PWM(ch))
+    {
+        return HW_CHANNEL_INVALID;
+    }
+
+    TIM_HandleTypeDef* htim = (TIM_HandleTypeDef*) pwm_channels[ch].timer_handle;
+
+    if (htim == NULL || htim->Instance == NULL)
+    {
+        return HW_NOT_INIT;
+    }
+
+    uint32_t arr = (CPU_FCLK / ((htim->Instance->PSC + 1) * hz)) - 1;
+
+    // ARR register bound checking
+    if (arr > BSP_MAX_ARR_PWM || arr < BSP_MIN_ARR_PWM)
+    {
+        return HW_ARR_UNSAFE;
+    }
+
+    htim->Instance->ARR = arr;
+
+    return HW_OK;
+}
+
+/// @brief
+/// @param ch
 /// @param status
 /// @return
 float bsp_pwm_get_duty_percent(const bsp_pwm_t ch, hal_signal_t* status)
 {
-    if (!CHECK_VALID_CHANNEL(ch))
+    if (!CHECK_VALID_CHANNEL_PWM(ch))
     {
         if (status)
         {
@@ -189,7 +204,7 @@ float bsp_pwm_get_duty_percent(const bsp_pwm_t ch, hal_signal_t* status)
 ///         indistinguishable from a stopped timer.
 uint32_t bsp_pwm_get_freq_hz(const bsp_pwm_t ch, hal_signal_t* status)
 {
-    if (!CHECK_VALID_CHANNEL(ch))
+    if (!CHECK_VALID_CHANNEL_PWM(ch))
     {
         if (status)
         {
@@ -228,7 +243,7 @@ uint32_t bsp_pwm_get_freq_hz(const bsp_pwm_t ch, hal_signal_t* status)
 /// @param ch PWM channel. Must already be range checked by the caller.
 /// @return pointer to the channel's CCR register, or NULL if the channel has no timer
 ///         handle bound to it yet. Callers must check for NULL before dereferencing.
-static volatile uint32_t* ret_ccr(const bsp_pwm_t ch)
+static inline volatile uint32_t* ret_ccr(const bsp_pwm_t ch)
 {
     TIM_HandleTypeDef* htim = (TIM_HandleTypeDef*) pwm_channels[ch].timer_handle;
 

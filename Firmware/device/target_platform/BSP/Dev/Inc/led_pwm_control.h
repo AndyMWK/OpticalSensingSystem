@@ -32,7 +32,7 @@ typedef struct ir_led_pwm_t
 
 } ir_led_pwm_t;
 
-status_signal_t ir_led_pwm_init(ir_led_pwm_t* self, bsp_pwm_t ch);
+status_signal_t ir_led_pwm_init(ir_led_pwm_t* self, const bsp_pwm_t ch);
 status_signal_t ir_led_pwm_stop(ir_led_pwm_t* self);
 
 /* Both getters take an optional status out param. On failure they return 0, which is not

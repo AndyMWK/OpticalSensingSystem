@@ -30,6 +30,6 @@ hal_signal_t bsp_i2c_receive_blocking(const bsp_i2c_ch ch, uint16_t* rx_data, co
 hal_signal_t bsp_i2c_transmit_dma(const bsp_i2c_ch ch, const uint16_t* tx_data, const size_t size);
 hal_signal_t bsp_i2c_receive_dma(const bsp_i2c_ch ch, uint16_t* rx_data, const size_t size);
 
-hal_signal_t bsp_register_i2c_dma_cb(const i2c_tx_dma_cb tx_cb, const i2c_rx_dma_cb rx_cb);
+hal_signal_t bsp_register_i2c_tx_dma_cb(const i2c_tx_dma_cb tx_cb, const i2c_rx_dma_cb rx_cb);
 
 #endif

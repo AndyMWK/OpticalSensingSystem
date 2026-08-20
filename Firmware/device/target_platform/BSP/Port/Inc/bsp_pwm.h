@@ -14,9 +14,6 @@ typedef enum
 /// @brief stores the pwm channel context.
 typedef struct bsp_pwm_ch_t
 {
-    unsigned int duty;
-    unsigned int frequency;
-
     // generic types to abstract any HAL implementation
     void* timer_handle;
     uint16_t timer_channel;
@@ -25,10 +22,12 @@ typedef struct bsp_pwm_ch_t
 } bsp_pwm_ch_t;
 
 // Macros
-#define CHECK_VALID_CHANNEL(pwm_channel) (((pwm_channel) < BSP_PWM_COUNT) ? 1 : 0)
+#define CHECK_VALID_CHANNEL_PWM(pwm_channel) (((pwm_channel) < BSP_PWM_COUNT) ? 1 : 0)
 
 // Defines
 #define BSP_DUTY_CYCLE_CAP 95.0f
+#define BSP_MAX_ARR_PWM (UINT16_MAX - 100)
+#define BSP_MIN_ARR_PWM 100
 
 hal_signal_t bsp_pwm_start(const bsp_pwm_t ch);
 hal_signal_t bsp_pwm_stop(const bsp_pwm_t ch);

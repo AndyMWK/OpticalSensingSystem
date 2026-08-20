@@ -5,7 +5,7 @@
 #include "hal_signals.h"
 
 // Macros
-#define CHECK_VALID_CHANNEL(channel) (channel >= BSP_SPI_CHANNEL_COUNT ? 0 : 1)
+#define CHECK_VALID_CHANNEL_SPI(channel) (channel >= BSP_SPI_CHANNEL_COUNT ? 0 : 1)
 
 // SPI DMA Callback Functions
 typedef void (*spi_tx_dma_cb_t)(void);
@@ -33,6 +33,9 @@ typedef struct bsp_spi_ch_t
     spi_tx_dma_cb_t dma_tx_cb;
     spi_rx_dma_cb_t dma_rx_cb;
 
+    // states to indicate whether the Transmission/Reception for DMA is available
+    uint8_t tx_dma_empty;
+
 } bsp_spi_ch_t;
 
 hal_signal_t bsp_spi_transmit_blocking(const bsp_spi_ch ch, const uint8_t* tx_data,
@@ -43,9 +46,11 @@ hal_signal_t bsp_spi_transmit_receive(const bsp_spi_ch ch, const uint8_t* tx_dat
                                       const size_t tx_size, size_t* rx_size);
 
 hal_signal_t bsp_spi_transmit_dma(const bsp_spi_ch ch, const uint8_t* tx_data, const size_t size);
-hal_signal_t bsp_spi_receive_dma(bsp_spi_ch ch, uint8_t* tx_data, size_t size);
+hal_signal_t bsp_spi_receive_dma(const bsp_spi_ch ch, uint8_t* tx_data, const size_t size);
 
 hal_signal_t bsp_register_spi_tx_dma_cb(const bsp_spi_ch ch, const spi_tx_dma_cb_t cb);
 hal_signal_t bsp_register_spi_rx_dma_cb(const bsp_spi_ch ch, const spi_rx_dma_cb_t cb);
+
+void bsp_spi_tx_dma_cb_pipe(void* hspi);
 
 #endif
