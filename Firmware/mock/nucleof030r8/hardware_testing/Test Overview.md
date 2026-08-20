@@ -5,8 +5,6 @@
 - **DUT:** ST Nucleo-F030R8 running the IR sensor firmware (FSM + PWM control loop).
 - **Stimulus/measurement instrument:** Digilent Analog Discovery 2 (AD2), connected via flying leads to the Nucleo's Arduino header (photodiode ADC inputs, PWM output, ground reference).
 
-![Mock device setup](mock%20device%20setup.jpeg)
-
 The AD2's power supplies / AWG channels are used to source static DC voltages into the two photodiode input channels (PD1/PD2), standing in for the analog signal the IR photodiode front-end would normally produce at a given target distance. The AD2's scope channels are used to monitor the resulting PWM output from the Nucleo.
 
 ## What's being tested
@@ -36,4 +34,4 @@ This is the same idea as active/automatic gain compensation (AGC): rather than a
 5. Capture the PWM duty cycle transition on the AD2 scope channel to verify the ramp rate and settling behavior visually.
 
 ## Video Footage
-[![Alternative Text](https://youtube.com/shorts/1NGU2nRBifU)](https://youtube.com/shorts/1NGU2nRBifU)
+[![Video Link](https://youtube.com/shorts/1NGU2nRBifU)](https://youtube.com/shorts/1NGU2nRBifU)
