@@ -11,19 +11,42 @@ Checks: >
   readability-*,
   -bugprone-easily-swappable-parameters,
   -misc-non-private-member-variables-in-classes,
+  -misc-include-cleaner,
+  -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
   -readability-identifier-length,
   -readability-magic-numbers,
   -readability-uppercase-literal-suffix,
+  -readability-use-concise-preprocessor-directives,
   -cert-dcl37-c,
   -cert-dcl51-cpp
 
+# Disabled above, with reasons:
+#   misc-include-cleaner        - wants every transitively-used symbol directly
+#                                 included; hostile to HAL's umbrella headers.
+#   clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling
+#                               - recommends MSVC _s variants that newlib lacks.
+#   readability-use-concise-preprocessor-directives
+#                               - proposes C23 #elifdef; this project is C11.
+
 WarningsAsErrors: ''
-HeaderFilterRegex: '^(App|Core/Inc)/.*'
+
+# Match the real on-disk layout: hand-written headers only. Anchoring at repo
+# root does not work - actual paths are Firmware/device/target_platform/...
+# These are unanchored searches, and clang-tidy reports a mix of '/' and '\'
+# separators on Windows, so every separator is written as [/\].
+HeaderFilterRegex: '(Core[/\]Inc|BSP[/\](Dev|Port)[/\]Inc)[/\]'
+# llvm::Regex has no negative lookahead, so the CubeMX headers living alongside
+# ours in Core/Inc have to be carved out here (needs clang-tidy >= 19).
+ExcludeHeaderFilterRegex: '(Drivers|Middlewares)[/\]|(main|stm32g0xx_it|stm32g0xx_hal_conf)\.h$'
 FormatStyle: file
 
 CheckOptions:
   - key: readability-identifier-naming.FunctionCase
     value: lower_case
+  # HAL/CubeMX entry points keep ST's naming - they are callbacks with fixed
+  # names, and some are legitimately defined in our own module sources.
+  - key: readability-identifier-naming.FunctionIgnoredRegexp
+    value: '^(HAL|MX|LL|BSP)_.*|.*_(IRQHandler|Handler|Callback)$|^(SystemInit|SystemCoreClockUpdate)$'
   - key: readability-identifier-naming.VariableCase
     value: lower_case
   - key: readability-identifier-naming.ParameterCase
@@ -32,10 +55,13 @@ CheckOptions:
     value: UPPER_CASE
   - key: readability-identifier-naming.MacroDefinitionCase
     value: UPPER_CASE
+  - key: readability-identifier-naming.MacroDefinitionIgnoredRegexp
+    value: '^(HAL|LL|USE|STM32|__).*|.*_(Pin|GPIO_Port)$|^assert_param$'
   - key: readability-identifier-naming.EnumConstantCase
     value: UPPER_CASE
+  # House style is snake_case with a _t suffix (fifo_t, rs485_packet_t), not CamelCase.
   - key: readability-identifier-naming.TypedefCase
-    value: CamelCase
+    value: lower_case
   - key: readability-identifier-naming.TypedefSuffix
     value: '_t'
   - key: readability-function-cognitive-complexity.Threshold

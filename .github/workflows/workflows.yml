@@ -17,7 +17,9 @@ jobs:
         with:
           style: 'file'      # Use .clang-format config file
           tidy-checks: ''  # Use .clang-tidy config file
-          ignore: '.github|**/test'
+          # Keep in step with the `files:`/`exclude:` scope in .pre-commit-config.yaml:
+          # hand-written target_platform code only.
+          ignore: '.github|**/test|**/tests|**/Drivers|Firmware/device/gen2_fw|Firmware/mock'
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
         run: exit 1
