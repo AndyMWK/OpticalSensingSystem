@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/cpp-linter/cpp-linter-hooks
+    rev: v1.6.0   # check the repo for the current tag
+    hooks:
+      # Scope: hand-written target_platform code only. CubeMX-generated sources
+      # (main.c, stm32g0xx_it.c, stm32g0xx_hal_msp.c, sys*.c) and vendor Drivers/
+      # fall outside `files:`; the three CubeMX headers in Core/Inc need `exclude:`.
+      #
+      # --version is pinned so the hook stops re-resolving the newest wheel from
+      # PyPI and pip-installing it on every run (which raced across parallel hook
+      # processes and produced "Access is denied" on clang-tidy.exe).
+      # require_serial removes that concurrency for good.
+      - id: clang-format
+        args: [--style=file, --version=22.1.8]  # auto-fixes in place
+        require_serial: true
+        files: ^Firmware/device/target_platform/(Core/(Src/modules|Inc)|BSP|tests)/.*\.(c|h)$
+        exclude: ^Firmware/device/target_platform/Core/Inc/(main|stm32g0xx_it|stm32g0xx_hal_conf)\.h$
+
+      # Parked on the `manual` stage: it does NOT run on commit. There is a
+      # backlog of real findings (bad includes in BSP/Dev, the HAL_BUSY clash in
+      # hal_signals.h, type errors in bsp_pwm.c) to work through first.
+      # Run it on demand with:
+      #   pre-commit run clang-tidy --hook-stage manual --all-files
+      # To re-arm it on commit, delete the `stages:` line below.
+      - id: clang-tidy
+        args: [--version=22.1.8]  # checks come from .clang-tidy
+        stages: [manual]
+        require_serial: true
+        files: ^Firmware/device/target_platform/(Core/(Src/modules|Inc)|BSP)/.*\.(c|h)$
+        exclude: ^Firmware/device/target_platform/Core/Inc/(main|stm32g0xx_it|stm32g0xx_hal_conf)\.h$

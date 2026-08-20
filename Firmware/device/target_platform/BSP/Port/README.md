@@ -1,0 +1,1 @@
+Generic Wrapper for HAL functions
